@@ -1,8 +1,0 @@
-{
-  "env": "development",
-  "port": 3000,
-  "version": "0.1",
-  "serverUri": "http://localhost:8002",
-  "google.clientId": "",
-  "prism.notebookUri": "http://localhost:8888"
-}
