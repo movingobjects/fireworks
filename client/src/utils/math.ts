@@ -1,5 +1,8 @@
 import { Physics } from '@/constants';
-import { Vector } from '@/types/pixi';
+import {
+  Range,
+  Vector,
+} from '@/types/pixi';
 
 /**
  * Determines initial velocity needed to launch projectile
@@ -36,6 +39,10 @@ export function getVelToHitTarget(
     x: targetVelX,
     y: targetVelY,
   };
+}
+
+export function randomInRange(range: Range) {
+  return (Math.random() * (range.max - range.min)) + range.min;
 }
 
 /**

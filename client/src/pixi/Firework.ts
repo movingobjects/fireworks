@@ -1,70 +1,121 @@
 import * as PIXI from 'pixi.js';
-import { Physics } from '@/constants';
+import { times } from 'remeda';
 import {
   FireworkSpec,
   Vector,
 } from '@/types/pixi';
-import { getVelToHitTarget } from '@/utils/math';
+import {
+  getVelToHitTarget,
+  randomInRange,
+} from '@/utils/math';
+import { Particle } from './Particle';
 
 export class Firework extends PIXI.Container {
-  static INIT_VEL_X_RANGE: number = 25;
+  private projectile: Particle;
+  private sparks: Particle[] = [];
 
-  private projectile: PIXI.Graphics = new PIXI.Graphics();
-  private isExploded: boolean = false;
-
-  velocity: Vector = {
-    x: 0,
-    y: 0,
-  };
-
-  radius: number;
-  color: string;
-  target: Vector;
+  private explodeAtVelocityY: number;
+  private hasExploded: boolean = false;
+  private spec: FireworkSpec;
 
   constructor(
     x: number,
     y: number,
-    options: FireworkSpec,
+    spec: FireworkSpec,
   ) {
     super();
-
+    this.spec = spec;
     this.x = x;
     this.y = y;
 
-    this.radius = options.radius;
-    this.color = options.color;
-    this.target = options.target;
+    this.explodeAtVelocityY = randomInRange(this.spec.projectile.explodeAtVelocityY);
 
-    const initVelocity = getVelToHitTarget(x, y, this.target);
-    this.velocity.x = initVelocity.x;
-    this.velocity.y = initVelocity.y;
-
-    this.draw();
+    this.projectile = this.getProjectile();
+    this.launchProjectile(spec.target);
   }
 
-  draw = () => {
-    this.projectile.circle(0, 0, this.radius);
-    this.projectile.fill({ color: this.color });
-    this.addChild(this.projectile);
+  getProjectile = () => {
+    const {
+      radius,
+      color,
+    } = this.spec.projectile;
+
+    const projectile = new Particle();
+    projectile.circle(0, 0, randomInRange(radius));
+    projectile.fill({ color });
+    this.addChild(projectile);
+    return projectile;
+  };
+
+  getSpark = () => {
+    const {
+      radius,
+      color,
+    } = this.spec.spark;
+
+    const spark = new Particle();
+    spark.circle(0, 0, randomInRange(radius));
+    spark.fill({ color });
+
+    spark.x = this.projectile.x;
+    spark.y = this.projectile.y;
+
+    this.addChild(spark);
+    return spark;
+  };
+
+  launchProjectile = (target: Vector) => {
+    const vel = getVelToHitTarget(this.x, this.y, target);
+    this.projectile.velocity.x = vel.x;
+    this.projectile.velocity.y = vel.y;
   };
 
   explode = () => {
-    this.isExploded = true;
+    this.hasExploded = true;
+
+    const {
+      sparkCountRange,
+      maxMagnitudeRange,
+      upwardMagnitudeRange,
+    } = this.spec.explosion;
+
+    const sparksCount = randomInRange(sparkCountRange);
+    const maxExplosionMagnitude = randomInRange(maxMagnitudeRange);
+    const upwardMagnitude = randomInRange(upwardMagnitudeRange);
+
+    times(sparksCount, () => {
+      const spark = this.getSpark();
+
+      const angle = Math.random() * 2 * Math.PI;
+      const magnitude = Math.random() * maxExplosionMagnitude;
+
+      spark.velocity.x = magnitude * Math.cos(angle);
+      spark.velocity.y = (magnitude * Math.sin(angle)) - upwardMagnitude;
+
+      // Add half of the X velocity of the projectile
+      spark.velocity.x += this.projectile.velocity.x / 2;
+
+      this.sparks.push(spark);
+    });
+
+    this.projectile.dispose();
   };
 
   update = (elapsedMs: number) => {
-    if (this.isExploded) return;
-
-    // Apply gravity & friction
-    this.velocity.y += Physics.GRAVITY;
-    this.velocity.x *= Physics.FRICTION;
-
-    // Update pos from velocity
-    this.x += this.velocity.x;
-    this.y += this.velocity.y;
-
-    if (this.velocity.y > 0) {
-      this.explode();
+    if (!this.hasExploded) {
+      this.projectile.applyPhysics();
+      if (this.projectile.velocity.y > this.explodeAtVelocityY) {
+        this.explode();
+      }
     }
+
+    this.sparks = this.sparks.reduce<Particle[]>((nextSparks, spark) => {
+      if (spark.isOffScreen()) {
+        spark.dispose();
+        return nextSparks;
+      }
+      spark.applyPhysics();
+      return [...nextSparks, spark];
+    }, []);
   };
 }

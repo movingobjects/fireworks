@@ -2,19 +2,22 @@ import * as PIXI from 'pixi.js';
 import { Firework } from './Firework';
 
 export class FireworksView extends PIXI.Container {
+  static pixiApp: PIXI.Application;
+  static width = (): number => FireworksView.pixiApp.screen.width;
+  static height = (): number => FireworksView.pixiApp.screen.height;
+
   fireworks: Firework[] = [];
-  app: PIXI.Application;
 
   constructor(app: PIXI.Application) {
     super();
 
-    this.app = app;
+    FireworksView.pixiApp = app;
 
     this.onFrame();
 
     setInterval(() => {
       this.launchFirework();
-    }, 500);
+    }, 100);
   }
 
   onFrame = (elapsedMs: number = 0) => {
@@ -26,12 +29,42 @@ export class FireworksView extends PIXI.Container {
   };
 
   launchFirework = () => {
-    const fw = new Firework(
-      this.app.screen.width / 2,
-      this.app.screen.height,
+    const firework = new Firework(
+      FireworksView.width() / 2,
+      FireworksView.height(),
       {
-        color: 'magenta',
-        radius: 5,
+        projectile: {
+          color: 'white',
+          radius: {
+            min: 3,
+            max: 5,
+          },
+          explodeAtVelocityY: {
+            min: 0,
+            max: 5,
+          },
+        },
+        spark: {
+          radius: {
+            min: 1,
+            max: 3,
+          },
+          color: 'white',
+        },
+        explosion: {
+          sparkCountRange: {
+            min: 25,
+            max: 500,
+          },
+          upwardMagnitudeRange: {
+            min: 5,
+            max: 10,
+          },
+          maxMagnitudeRange: {
+            min: 3,
+            max: 20,
+          },
+        },
         target: {
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
@@ -39,7 +72,7 @@ export class FireworksView extends PIXI.Container {
       },
     );
 
-    this.addChild(fw);
-    this.fireworks.push(fw);
+    this.addChild(firework);
+    this.fireworks.push(firework);
   };
 }
