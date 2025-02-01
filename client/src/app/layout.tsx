@@ -7,11 +7,7 @@ export const metadata: Metadata = {
   description: 'Animation demo for Visual Electric',
 };
 
-type RootLayoutProps = {
-  readonly children: React.ReactNode;
-};
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
       <body>{children}</body>

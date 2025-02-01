@@ -50,7 +50,7 @@ export default [
       '@stylistic/eol-last': ['warn', 'never'],
       '@stylistic/function-call-argument-newline': ['warn', 'consistent'],
       '@stylistic/function-call-spacing': ['warn', 'never'],
-      '@stylistic/function-paren-newline': ['warn', 'multiline'],
+      '@stylistic/function-paren-newline': ['warn', 'consistent'],
       '@stylistic/implicit-arrow-linebreak': ['warn', 'beside'],
       '@stylistic/indent-binary-ops': ['warn', 2],
       '@stylistic/indent': ['error', 2],

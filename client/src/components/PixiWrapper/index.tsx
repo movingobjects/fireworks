@@ -24,7 +24,7 @@ export default function PixiWrapper() {
       canvas,
     });
 
-    const view = new FireworksView();
+    const view = new FireworksView(app);
     app.stage.addChild(view);
 
     return app;
