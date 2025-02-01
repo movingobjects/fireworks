@@ -8,25 +8,30 @@ export type Range = {
   max: number;
 };
 
+export interface FireworkSpec {
+  projectile: ProjectileSpec;
+  explosion: ExplosionSpec;
+}
+
 export interface ProjectileSpec {
   color: string;
-  radius: Range;
-  explodeAtVelocityY: Range;
-}
-export interface SparkSpec {
-  color: string;
-  radius: Range;
+  radiusRange: Range;
+  target: Vector;
+  explodeAtVelocityYRange: Range;
 }
 
 export interface ExplosionSpec {
   sparkCountRange: Range;
+  sparkMassRange: Range;
+  sparkRadiusRange: Range;
   maxMagnitudeRange: Range;
   upwardMagnitudeRange: Range;
 }
 
-export interface FireworkSpec {
-  target: Vector;
-  projectile: ProjectileSpec;
-  explosion: ExplosionSpec;
-  spark: SparkSpec;
+export interface SparkSpec {
+  color: string;
+  radius: number;
+  mass: number;
+  explosionMagnitude: number;
+  upwardMagnitude: number;
 }

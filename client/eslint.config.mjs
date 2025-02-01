@@ -117,7 +117,16 @@ export default [
       '@stylistic/object-curly-spacing': ['warn', 'always'],
       '@stylistic/object-property-newline': ['warn', { allowAllPropertiesOnSameLine: false }],
       '@stylistic/one-var-declaration-per-line': ['warn', 'initializations'],
-      '@stylistic/operator-linebreak': ['warn', 'before'],
+      '@stylistic/operator-linebreak': [
+        'warn',
+        'after',
+        {
+          overrides: {
+            '?': 'before',
+            ':': 'before',
+          },
+        },
+      ],
       '@stylistic/padded-blocks': ['warn', 'never'],
       '@stylistic/quote-props': ['warn', 'as-needed'],
       '@stylistic/quotes': [

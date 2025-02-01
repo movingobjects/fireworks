@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+import { FireworkSpec } from '@/types/pixi';
 import { Firework } from './Firework';
 
 export class FireworksView extends PIXI.Container {
@@ -17,7 +18,7 @@ export class FireworksView extends PIXI.Container {
 
     setInterval(() => {
       this.launchFirework();
-    }, 100);
+    }, 500);
   }
 
   onFrame = (elapsedMs: number = 0) => {
@@ -29,47 +30,50 @@ export class FireworksView extends PIXI.Container {
   };
 
   launchFirework = () => {
-    const firework = new Firework(
-      FireworksView.width() / 2,
-      FireworksView.height(),
-      {
-        projectile: {
-          color: 'white',
-          radius: {
-            min: 3,
-            max: 5,
-          },
-          explodeAtVelocityY: {
-            min: 0,
-            max: 5,
-          },
+    const spec: FireworkSpec = {
+      projectile: {
+        color: 'white',
+        radiusRange: {
+          min: 1,
+          max: 2,
         },
-        spark: {
-          radius: {
-            min: 1,
-            max: 3,
-          },
-          color: 'white',
-        },
-        explosion: {
-          sparkCountRange: {
-            min: 25,
-            max: 500,
-          },
-          upwardMagnitudeRange: {
-            min: 5,
-            max: 10,
-          },
-          maxMagnitudeRange: {
-            min: 3,
-            max: 20,
-          },
+        explodeAtVelocityYRange: {
+          min: 0,
+          max: 5,
         },
         target: {
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
         },
       },
+      explosion: {
+        sparkCountRange: {
+          min: 50,
+          max: 500,
+        },
+        sparkRadiusRange: {
+          min: 1,
+          max: 3,
+        },
+        sparkMassRange: {
+          min: 0.25,
+          max: 1,
+        },
+        upwardMagnitudeRange: {
+          min: 5,
+          max: 10,
+        },
+        maxMagnitudeRange: {
+          min: 2,
+          max: 10,
+        },
+      },
+    };
+
+    const firework = new Firework(
+      FireworksView.width() / 2,
+      FireworksView.height(),
+      spec,
     );
 
     this.addChild(firework);

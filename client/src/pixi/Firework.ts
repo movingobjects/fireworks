@@ -1,20 +1,14 @@
 import * as PIXI from 'pixi.js';
 import { times } from 'remeda';
-import {
-  FireworkSpec,
-  Vector,
-} from '@/types/pixi';
-import {
-  getVelToHitTarget,
-  randomInRange,
-} from '@/utils/math';
-import { Particle } from './Particle';
+import { FireworkSpec } from '@/types/pixi';
+import { getRandomInRange } from '@/utils/math';
+import { Projectile } from './Projectile';
+import { Spark } from './Spark';
 
 export class Firework extends PIXI.Container {
-  private projectile: Particle;
-  private sparks: Particle[] = [];
+  private projectile?: Projectile;
+  private sparks: Spark[] = [];
 
-  private explodeAtVelocityY: number;
   private hasExploded: boolean = false;
   private spec: FireworkSpec;
 
@@ -25,92 +19,55 @@ export class Firework extends PIXI.Container {
   ) {
     super();
     this.spec = spec;
-    this.x = x;
-    this.y = y;
 
-    this.explodeAtVelocityY = randomInRange(this.spec.projectile.explodeAtVelocityY);
-
-    this.projectile = this.getProjectile();
-    this.launchProjectile(spec.target);
+    this.projectile = new Projectile(x, y, spec.projectile);
+    this.addChild(this.projectile);
   }
 
-  getProjectile = () => {
-    const {
-      radius,
-      color,
-    } = this.spec.projectile;
-
-    const projectile = new Particle();
-    projectile.circle(0, 0, randomInRange(radius));
-    projectile.fill({ color });
-    this.addChild(projectile);
-    return projectile;
-  };
-
-  getSpark = () => {
-    const {
-      radius,
-      color,
-    } = this.spec.spark;
-
-    const spark = new Particle();
-    spark.circle(0, 0, randomInRange(radius));
-    spark.fill({ color });
-
-    spark.x = this.projectile.x;
-    spark.y = this.projectile.y;
-
-    this.addChild(spark);
-    return spark;
-  };
-
-  launchProjectile = (target: Vector) => {
-    const vel = getVelToHitTarget(this.x, this.y, target);
-    this.projectile.velocity.x = vel.x;
-    this.projectile.velocity.y = vel.y;
-  };
-
   explode = () => {
-    this.hasExploded = true;
+    if (!this.projectile) return;
 
     const {
       sparkCountRange,
+      sparkMassRange,
+      sparkRadiusRange,
       maxMagnitudeRange,
       upwardMagnitudeRange,
     } = this.spec.explosion;
 
-    const sparksCount = randomInRange(sparkCountRange);
-    const maxExplosionMagnitude = randomInRange(maxMagnitudeRange);
-    const upwardMagnitude = randomInRange(upwardMagnitudeRange);
+    const sparksCount = getRandomInRange(sparkCountRange);
 
     times(sparksCount, () => {
-      const spark = this.getSpark();
-
-      const angle = Math.random() * 2 * Math.PI;
-      const magnitude = Math.random() * maxExplosionMagnitude;
-
-      spark.velocity.x = magnitude * Math.cos(angle);
-      spark.velocity.y = (magnitude * Math.sin(angle)) - upwardMagnitude;
-
-      // Add half of the X velocity of the projectile
-      spark.velocity.x += this.projectile.velocity.x / 2;
-
+      const spark = new Spark(
+        this.projectile!,
+        {
+          color: 'white',
+          radius: getRandomInRange(sparkRadiusRange),
+          mass: getRandomInRange(sparkMassRange),
+          explosionMagnitude: getRandomInRange(maxMagnitudeRange),
+          upwardMagnitude: getRandomInRange(upwardMagnitudeRange),
+        },
+      );
+      this.addChild(spark);
       this.sparks.push(spark);
     });
 
     this.projectile.dispose();
+    delete this.projectile;
   };
 
   update = (elapsedMs: number) => {
-    if (!this.hasExploded) {
+    if (this.projectile) {
       this.projectile.applyPhysics();
-      if (this.projectile.velocity.y > this.explodeAtVelocityY) {
+      if (this.projectile.isAtArcPeak()) {
         this.explode();
       }
     }
 
-    this.sparks = this.sparks.reduce<Particle[]>((nextSparks, spark) => {
-      if (spark.isOffScreen()) {
+    // Loops through all sparks, disposing those off screen
+    // and applying physics to the remaining
+    this.sparks = this.sparks.reduce<Spark[]>((nextSparks, spark) => {
+      if (spark.canBeDisposed()) {
         spark.dispose();
         return nextSparks;
       }

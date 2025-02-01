@@ -41,13 +41,24 @@ export function getVelToHitTarget(
   };
 }
 
-export function randomInRange(range: Range) {
+export function getVectorFromPolar(
+  angle: number,
+  magnitude: number,
+): Vector {
+  return {
+    x: magnitude * Math.cos(angle),
+    y: magnitude * Math.sin(angle),
+  };
+}
+
+export function getRandomRadianAngle() {
+  return Math.random() * 2 * Math.PI;
+}
+
+export function getRandomInRange(range: Range) {
   return (Math.random() * (range.max - range.min)) + range.min;
 }
 
-/**
- * Interpolate (linear)
- */
 export function lerp(
   min: number,
   max: number,
@@ -56,9 +67,6 @@ export function lerp(
   return (min * (1 - val)) + (max * val);
 }
 
-/**
- * Normalize
- */
 export function norm(
   val: number,
   min: number,
