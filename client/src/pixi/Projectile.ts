@@ -1,7 +1,6 @@
-import {
-  ProjectileSpec,
-  Vector,
-} from '@/types/pixi';
+import * as PIXI from 'pixi.js';
+import { ProjectileSpec } from '@/types/fireworks';
+import { Vector } from '@/types/math';
 import {
   getRandomInRange,
   getVelToHitTarget,
@@ -9,7 +8,8 @@ import {
 import { Particle } from './Particle';
 
 export class Projectile extends Particle {
-  private explodeAtVelocityY: number;
+  explodeAtVelocityY: number;
+  graphic: PIXI.Graphics;
 
   constructor(
     x: number,
@@ -25,14 +25,18 @@ export class Projectile extends Particle {
       target,
     } = spec;
 
-    this.circle(0, 0, getRandomInRange(radiusRange));
-    this.fill({ color });
-
+    // Init properties
     this.x = x;
     this.y = y;
-
     this.explodeAtVelocityY = getRandomInRange(explodeAtVelocityYRange);
 
+    // Draw
+    this.graphic = new PIXI.Graphics();
+    this.graphic.circle(0, 0, getRandomInRange(radiusRange));
+    this.graphic.fill({ color });
+    this.addChild(this.graphic);
+
+    // Launch!
     this.launchAt(target);
   }
 

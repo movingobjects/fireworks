@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "jotai": "^2.11.3",
     "next": "15.1.6",
     "pixi.js": "^8.7.2",
     "react": "^19.0.0",

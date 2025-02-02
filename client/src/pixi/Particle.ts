@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js';
 import { Physics } from '@/constants';
-import { Vector } from '@/types/pixi';
+import { Vector } from '@/types/math';
 
-export class Particle extends PIXI.Graphics {
+export class Particle extends PIXI.Container {
   mass: number = 1;
   velocity: Vector = {
     x: 0,

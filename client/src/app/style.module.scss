@@ -1,3 +1,7 @@
 .wrap {
-  overflow: hidden; // TODO: unneeded
+  .controls {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+  }
 }

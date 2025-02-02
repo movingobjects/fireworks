@@ -1,12 +1,7 @@
-export type Vector = {
-  x: number;
-  y: number;
-};
-
-export type Range = {
-  min: number;
-  max: number;
-};
+import {
+  Range,
+  Vector,
+} from './math';
 
 export interface FireworkSpec {
   projectile: ProjectileSpec;
@@ -24,11 +19,14 @@ export interface ExplosionSpec {
   sparkCountRange: Range;
   sparkMassRange: Range;
   sparkRadiusRange: Range;
+  sparkHueRange: Range;
+  sparkTextures: string[];
   maxMagnitudeRange: Range;
   upwardMagnitudeRange: Range;
 }
 
 export interface SparkSpec {
+  texture: string;
   color: string;
   radius: number;
   mass: number;

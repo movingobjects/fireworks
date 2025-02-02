@@ -1,13 +1,16 @@
-import { SparkSpec } from '@/types/pixi';
+import * as PIXI from 'pixi.js';
+import { SparkSpec } from '@/types/fireworks';
 import {
   getRandomRadianAngle,
   getVectorFromPolar,
 } from '@/utils/math';
-import { FireworksView } from './FireworksView';
 import { Particle } from './Particle';
+import { PixiView } from './PixiView';
 import { Projectile } from './Projectile';
 
 export class Spark extends Particle {
+  graphic: PIXI.Sprite;
+
   constructor(
     projectile: Projectile,
     spec: SparkSpec,
@@ -16,24 +19,41 @@ export class Spark extends Particle {
 
     const {
       radius,
+      texture,
       color,
       mass,
       explosionMagnitude,
       upwardMagnitude,
     } = spec;
 
-    this.circle(0, 0, radius);
-    this.fill({ color });
-
+    // Init values
+    this.mass = mass;
     this.x = projectile.x;
     this.y = projectile.y;
-    this.mass = mass;
 
+    this.graphic = new PIXI.Sprite(
+      PIXI.Texture.from(`/textures/${texture}.png`),
+    );
+    this.graphic.tint = color;
+    this.graphic.width = radius;
+    this.graphic.height = radius;
+    this.graphic.rotation = Math.random() * Math.PI * 2;
+    this.addChild(this.graphic);
+
+    // Explode!
+    this.explode(projectile, explosionMagnitude, upwardMagnitude);
+  }
+
+  explode = (
+    projectile: Projectile,
+    explosionMagnitude: number,
+    upwardMagnitude: number,
+  ) => {
     const explosionVelocity = this.getExplosionVelocity(explosionMagnitude);
 
     this.velocity.x = (projectile.velocity.x / 2) + explosionVelocity.x;
     this.velocity.y = (projectile.velocity.y / 2) + explosionVelocity.y - upwardMagnitude;
-  }
+  };
 
   getExplosionVelocity = (magnitude: number) => (
     getVectorFromPolar(getRandomRadianAngle(), magnitude)
@@ -41,7 +61,7 @@ export class Spark extends Particle {
 
   canBeDisposed = () => (
     this.x < 0 ||
-    this.x > FireworksView.width() ||
-    this.y > FireworksView.height()
+    this.x > PixiView.width() ||
+    this.y > PixiView.height()
   );
 }

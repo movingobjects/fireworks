@@ -2,7 +2,7 @@ import { Physics } from '@/constants';
 import {
   Range,
   Vector,
-} from '@/types/pixi';
+} from '@/types/math';
 
 /**
  * Determines initial velocity needed to launch projectile

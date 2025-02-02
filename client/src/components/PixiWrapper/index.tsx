@@ -1,13 +1,13 @@
 'use client';
 
-import { Application } from 'pixi.js';
+import * as PIXI from 'pixi.js';
 import React from 'react';
 import {
   useCallback,
   useEffect,
   useRef,
 } from 'react';
-import { FireworksView } from '@/pixi/FireworksView';
+import { PixiView } from '@/pixi/PixiView';
 
 export default function PixiWrapper() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -17,14 +17,15 @@ export default function PixiWrapper() {
    */
   const initApp = useCallback(async() => {
     const canvas = canvasRef.current ?? undefined;
-    const app = new Application();
+    const app = new PIXI.Application();
 
     await app.init({
       resizeTo: window,
       canvas,
+      backgroundColor: 0x101,
     });
 
-    const view = new FireworksView(app);
+    const view = new PixiView(app);
     app.stage.addChild(view);
 
     return app;
@@ -39,5 +40,7 @@ export default function PixiWrapper() {
     };
   }, [initApp]);
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <canvas ref={canvasRef} />
+  );
 }

@@ -1,6 +1,10 @@
 import * as PIXI from 'pixi.js';
-import { times } from 'remeda';
-import { FireworkSpec } from '@/types/pixi';
+import {
+  sample,
+  times,
+} from 'remeda';
+import { FireworkSpec } from '@/types/fireworks';
+import { hsvToHex } from '@/utils/color';
 import { getRandomInRange } from '@/utils/math';
 import { Projectile } from './Projectile';
 import { Spark } from './Spark';
@@ -28,9 +32,11 @@ export class Firework extends PIXI.Container {
     if (!this.projectile) return;
 
     const {
+      sparkTextures,
       sparkCountRange,
       sparkMassRange,
       sparkRadiusRange,
+      sparkHueRange,
       maxMagnitudeRange,
       upwardMagnitudeRange,
     } = this.spec.explosion;
@@ -41,7 +47,8 @@ export class Firework extends PIXI.Container {
       const spark = new Spark(
         this.projectile!,
         {
-          color: 'white',
+          texture: sample(sparkTextures, 1)[0]!,
+          color: hsvToHex(getRandomInRange(sparkHueRange)),
           radius: getRandomInRange(sparkRadiusRange),
           mass: getRandomInRange(sparkMassRange),
           explosionMagnitude: getRandomInRange(maxMagnitudeRange),
@@ -56,7 +63,7 @@ export class Firework extends PIXI.Container {
     delete this.projectile;
   };
 
-  update = (elapsedMs: number) => {
+  update = () => {
     if (this.projectile) {
       this.projectile.applyPhysics();
       if (this.projectile.isAtArcPeak()) {
