@@ -10,7 +10,7 @@
 - [x] Make background resize to fit window
 - [x] Add UI to change modes
 - [x] Allow modes to control background
-- [ ] Add 5 or so modes
+- [x] Add 5 or so modes
 - [ ] Add trails to projectiles & sparks
 - [ ] Add sound effects
 - [ ] Add data structure for firework displays
