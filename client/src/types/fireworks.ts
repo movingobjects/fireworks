@@ -23,6 +23,7 @@ export interface ExplosionSpec {
   sparkDragOpts: NumberOptions;
   sparkFadeDelayOpts: NumberOptions;
   sparkFadeDurationOpts: NumberOptions;
+  sparkFadeRadiusMultOpts: NumberOptions;
   sparkHueOpts: NumberOptions;
   sparkRadiusOpts: NumberOptions;
   sparkTextureOpts: StringOptions;

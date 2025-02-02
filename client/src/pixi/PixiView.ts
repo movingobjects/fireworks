@@ -152,6 +152,10 @@ export class PixiView extends PIXI.Container {
           min: 250,
           max: 1250,
         },
+        sparkFadeRadiusMultOpts: {
+          min: 0.985,
+          max: 1.015,
+        },
         sparkTextureOpts: ['circle'],
         upwardMagnitudeOpts: {
           min: 5,

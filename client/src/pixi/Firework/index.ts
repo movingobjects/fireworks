@@ -61,6 +61,7 @@ export class Firework extends PIXI.Container {
       sparkHueOpts,
       sparkFadeDelayOpts,
       sparkFadeDurationOpts,
+      sparkFadeRadiusMultOpts,
       sparkDragOpts,
       sparkRadiusOpts,
       sparkTextureOpts,
@@ -73,6 +74,7 @@ export class Firework extends PIXI.Container {
     const maxMagnitudeCollapsed = shallowCollapseNum(maxMagnitudeOpts);
     const textureCollapsed = shallowCollapseString(sparkTextureOpts);
     const fadeDelayCollapsed = shallowCollapseNum(sparkFadeDelayOpts);
+    const fadeRadiusMultCollapsed = shallowCollapseNum(sparkFadeRadiusMultOpts);
 
     times(sparksCount, () => {
       const spark = new Spark({
@@ -83,6 +85,7 @@ export class Firework extends PIXI.Container {
         drag: collapseNum(sparkDragOpts),
         fadeDelay: collapseNum(fadeDelayCollapsed),
         fadeDuration: collapseNum(sparkFadeDurationOpts),
+        fadeRadiusMult: collapseNum(fadeRadiusMultCollapsed),
         explosionMagnitude: collapseNum(maxMagnitudeCollapsed),
         upwardMagnitude: collapseNum(upwardMagnitudeOpts),
       });
