@@ -3,6 +3,9 @@ import {
   Vector,
 } from './math';
 
+export type NumberOptions = number | Range | NumberOptions[];
+export type StringOptions = string | StringOptions[];
+
 export interface FireworkSpec {
   projectile: ProjectileSpec;
   explosion: ExplosionSpec;
@@ -10,26 +13,17 @@ export interface FireworkSpec {
 
 export interface ProjectileSpec {
   color: string;
-  radiusRange: Range;
+  explodeAtVelocityYOpts: NumberOptions;
+  radiusOpts: NumberOptions;
   target: Vector;
-  explodeAtVelocityYRange: Range;
 }
 
 export interface ExplosionSpec {
-  sparkCountRange: Range;
-  sparkMassRange: Range;
-  sparkRadiusRange: Range;
-  sparkHueRange: Range;
-  sparkTextures: string[];
-  maxMagnitudeRange: Range;
-  upwardMagnitudeRange: Range;
-}
-
-export interface SparkSpec {
-  texture: string;
-  color: string;
-  radius: number;
-  mass: number;
-  explosionMagnitude: number;
-  upwardMagnitude: number;
+  maxMagnitudeOpts: NumberOptions;
+  sparkCountOpts: NumberOptions;
+  sparkHueOpts: NumberOptions;
+  sparkMassOpts: NumberOptions;
+  sparkRadiusOpts: NumberOptions;
+  sparkTextureOpts: StringOptions;
+  upwardMagnitudeOpts: NumberOptions;
 }

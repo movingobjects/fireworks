@@ -1,30 +1,35 @@
 import * as PIXI from 'pixi.js';
-import { SparkSpec } from '@/types/fireworks';
 import {
   getRandomRadianAngle,
   getVectorFromPolar,
 } from '@/utils/math';
-import { Particle } from './Particle';
-import { PixiView } from './PixiView';
+import { Particle } from '../Particle';
+import { PixiView } from '../PixiView';
 import { Projectile } from './Projectile';
+
+type SparkProps = {
+  projectile: Projectile;
+  texture: string;
+  color: string;
+  radius: number;
+  mass: number;
+  explosionMagnitude: number;
+  upwardMagnitude: number;
+};
 
 export class Spark extends Particle {
   graphic: PIXI.Sprite;
 
-  constructor(
-    projectile: Projectile,
-    spec: SparkSpec,
-  ) {
+  constructor({
+    projectile,
+    texture,
+    color,
+    radius,
+    mass,
+    explosionMagnitude,
+    upwardMagnitude,
+  }: SparkProps) {
     super();
-
-    const {
-      radius,
-      texture,
-      color,
-      mass,
-      explosionMagnitude,
-      upwardMagnitude,
-    } = spec;
 
     // Init values
     this.mass = mass;
@@ -41,7 +46,11 @@ export class Spark extends Particle {
     this.addChild(this.graphic);
 
     // Explode!
-    this.explode(projectile, explosionMagnitude, upwardMagnitude);
+    this.explode(
+      projectile,
+      explosionMagnitude,
+      upwardMagnitude,
+    );
   }
 
   explode = (

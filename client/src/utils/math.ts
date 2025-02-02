@@ -55,8 +55,13 @@ export function getRandomRadianAngle() {
   return Math.random() * 2 * Math.PI;
 }
 
-export function getRandomInRange(range: Range) {
+export function getRandomInRange(range: Range): number {
   return (Math.random() * (range.max - range.min)) + range.min;
+}
+
+export function getRandomArrayItem(array: any[]): any {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
 }
 
 export function lerp(

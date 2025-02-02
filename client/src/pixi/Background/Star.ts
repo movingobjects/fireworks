@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js';
-import { getRandomInRange } from '@/utils/math';
 
 export class Star extends PIXI.Container {
   distance: number;

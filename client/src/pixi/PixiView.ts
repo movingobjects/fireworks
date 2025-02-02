@@ -1,8 +1,9 @@
 import { getDefaultStore } from 'jotai';
 import * as PIXI from 'pixi.js';
+import { times } from 'remeda';
 import * as atoms from '@/atoms';
 import { FireworkSpec } from '@/types/fireworks';
-import { Background } from './Background/Background';
+import { Background } from './Background';
 import { Firework } from './Firework';
 
 export class PixiView extends PIXI.Container {
@@ -87,11 +88,14 @@ export class PixiView extends PIXI.Container {
     clearInterval(this.launchInterval);
     this.launchInterval = window.setInterval(() => {
       this.launchFirework();
-    }, 500);
+    }, 200);
   };
 
   preloadTextures = async() => {
+    await PIXI.Assets.load('/textures/x.png');
+    await PIXI.Assets.load('/textures/circle.png');
     await PIXI.Assets.load('/textures/star.png');
+    await PIXI.Assets.load('/textures/visual-electric.png');
   };
 
   drawBackground = () => {
@@ -101,14 +105,17 @@ export class PixiView extends PIXI.Container {
 
   launchFirework = () => {
     // TODO
+
+    const HUE_RANGE = 20;
+
     const spec: FireworkSpec = {
       projectile: {
         color: 'white',
-        radiusRange: {
+        radiusOpts: {
           min: 1,
           max: 2,
         },
-        explodeAtVelocityYRange: {
+        explodeAtVelocityYOpts: {
           min: 0,
           max: 5,
         },
@@ -118,31 +125,43 @@ export class PixiView extends PIXI.Container {
         },
       },
       explosion: {
-        sparkCountRange: {
+        sparkCountOpts: {
           min: 100,
-          max: 1000,
+          max: 500,
         },
-        sparkHueRange: {
-          min: 0,
-          max: 25,
-        },
-        sparkRadiusRange: {
-          min: 3,
-          max: 10,
-        },
-        sparkMassRange: {
-          min: 0.05,
+        sparkHueOpts: times(Math.floor(360 / HUE_RANGE), (index) => ({
+          min: index * HUE_RANGE,
+          max: (index + 1) * HUE_RANGE,
+        })),
+        sparkRadiusOpts: [
+          {
+            min: 5,
+            max: 10,
+          },
+        ],
+        sparkMassOpts: {
+          min: 0.15,
           max: 0.25,
         },
-        sparkTextures: ['star'],
-        upwardMagnitudeRange: {
+        sparkTextureOpts: ['circle'],
+        upwardMagnitudeOpts: {
           min: 5,
           max: 10,
         },
-        maxMagnitudeRange: {
-          min: 1,
-          max: 10,
-        },
+        maxMagnitudeOpts: [
+          {
+            min: 1,
+            max: 10,
+          },
+          {
+            min: 5,
+            max: 15,
+          },
+          {
+            min: 20,
+            max: 20,
+          },
+        ],
       },
     };
 
