@@ -13,6 +13,7 @@ export class PixiView extends PIXI.Container {
   atomStore: any;
   launchInterval: number = 0;
 
+  background?: Background;
   fireworks: Firework[] = [];
 
   animationId?: number;
@@ -27,6 +28,7 @@ export class PixiView extends PIXI.Container {
     this.initAtomStore();
     this.initAutoPause();
     this.preloadTextures();
+    this.drawBackground();
     this.startAnimation();
   }
 
@@ -90,6 +92,11 @@ export class PixiView extends PIXI.Container {
 
   preloadTextures = async() => {
     await PIXI.Assets.load('/textures/star.png');
+  };
+
+  drawBackground = () => {
+    this.background = new Background();
+    this.addChild(this.background);
   };
 
   launchFirework = () => {
