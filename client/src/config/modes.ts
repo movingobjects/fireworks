@@ -6,6 +6,10 @@ export const modes: ModeSpec[] = [
     id: 'mode-1',
     label: 'Celebration',
     launchInterval: 200,
+    background: {
+      enableStars: true,
+      glowColor: 0x220033,
+    },
     fireworks: [
       {
         id: 'a',
@@ -29,13 +33,15 @@ export const modes: ModeSpec[] = [
             max: 0.75,
           },
         ],
-        sparkFadeDelayOpts: {
-          min: 250,
-          max: 1250,
-        },
+        sparkFadeDelayOpts: [
+          {
+            min: 500,
+            max: 1250,
+          },
+        ],
         sparkFadeDurationOpts: {
-          min: 250,
-          max: 1250,
+          min: 750,
+          max: 4000,
         },
         sparkTextureOpts: ['circle'],
         explosionMagnitudeOpts: [
@@ -55,6 +61,10 @@ export const modes: ModeSpec[] = [
     id: 'mode-2',
     label: 'Knockout!',
     launchInterval: 400,
+    background: {
+      enableStars: false,
+      glowColor: 0x330066,
+    },
     fireworks: [
       {
         id: 'a',
@@ -84,7 +94,7 @@ export const modes: ModeSpec[] = [
         },
         sparkFadeDurationOpts: {
           min: 1000,
-          max: 1250,
+          max: 2000,
         },
         sparkTextureOpts: [['x', 'star']],
         explosionMagnitudeOpts: [
@@ -100,6 +110,10 @@ export const modes: ModeSpec[] = [
     id: 'mode-3',
     label: 'Mind Camera',
     launchInterval: 300,
+    background: {
+      enableStars: false,
+      glowColor: 0x220011,
+    },
     fireworks: [
       {
         id: 'a',
@@ -130,7 +144,7 @@ export const modes: ModeSpec[] = [
         },
         sparkFadeDurationOpts: {
           min: 500,
-          max: 1000,
+          max: 5000,
         },
         sparkTextureOpts: ['visual-electric'],
         explosionMagnitudeOpts: [

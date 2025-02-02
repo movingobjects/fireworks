@@ -16,7 +16,6 @@ import {
   shallowCollapseString,
 } from '@/utils/collapse';
 import { fromHsv } from '@/utils/color';
-import { getRandomInRange } from '@/utils/math';
 import { Projectile } from './Projectile';
 import { Spark } from './Spark';
 
@@ -55,13 +54,7 @@ export class Firework extends PIXI.Container {
   }
 
   drawProjectile = (x: number, y: number) => {
-    this.projectile = new Projectile({
-      radius: getRandomInRange({
-        min: 1,
-        max: 3,
-      }),
-      color: fromHsv(collapseNum(this.hueOpts)),
-    });
+    this.projectile = new Projectile();
 
     this.projectile.x = x;
     this.projectile.y = y;

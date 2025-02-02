@@ -1,8 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { COLOR_TWILIGHT } from '@/config/constants';
-import { mixColors } from '@/utils/color';
 import {
-  clamp,
   getRandomRadianAngle,
   getVectorFromPolar,
   norm,
@@ -81,8 +78,9 @@ export class Spark extends Particle {
     const elapsed = performance.now() - this.explodeTime;
     if (elapsed < this.fadeDelay) return;
 
-    const amt = norm(elapsed, this.fadeDelay, this.fadeDelay + this.fadeDuration);
-    this.tint = mixColors(this.color, COLOR_TWILIGHT, clamp(amt));
+    const fadeAmt = norm(elapsed, this.fadeDelay, this.fadeDelay + this.fadeDuration);
+
+    this.alpha = Math.pow(1 - fadeAmt, 5);
   };
 
   getExplosionVelocity = (magnitude: number) => (

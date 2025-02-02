@@ -36,9 +36,13 @@ export function fromHsv(hue: number = 0, sat: number = 1, val: number = 1): numb
   return (r << 16) | (g << 8) | b;
 }
 
-export function mixColors(colorA: number, colorB: number, amt: number): number {
-  let rgbA = toRgb(colorA),
-    rgbB = toRgb(colorB);
+export function mixColors(
+  colorA: number,
+  colorB: number,
+  amt: number,
+): number {
+  const rgbA = toRgb(colorA);
+  const rgbB = toRgb(colorB);
 
   return fromRgb({
     r: lerp(rgbA.r, rgbB.r, amt),

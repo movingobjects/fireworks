@@ -1,6 +1,7 @@
 import { getDefaultStore } from 'jotai';
 import * as PIXI from 'pixi.js';
 import * as atoms from '@/atoms';
+import { ModeSpec } from '@/types/fireworks';
 import { getRandomArrayItem } from '@/utils/math';
 import { Background } from './Background';
 import { Firework } from './Firework';
@@ -13,7 +14,7 @@ export class PixiView extends PIXI.Container {
   atomStore: any;
   lastLaunchTime: number = 0;
 
-  background?: Background;
+  background: Background;
   fireworks: Firework[] = [];
 
   animationId?: number;
@@ -24,25 +25,26 @@ export class PixiView extends PIXI.Container {
     // Static access to PIXI.Application
     PixiView.pixiApp = app;
 
+    this.atomStore = getDefaultStore();
+
     this.initTicker();
-    this.initAtomStore();
     this.preloadTextures();
-    this.drawBackground();
+    this.background = this.drawBackground();
     this.startAnimation();
   }
 
   onTick = (ticker: PIXI.Ticker) => {
-    if (this.background) {
-      this.background.update();
-    }
+    // Update background
+    this.background.update();
 
+    // Update fireworks
     this.fireworks.forEach((firework) => {
       firework.update();
     });
 
-    const { launchInterval } = this.atomStore.get(atoms.activeMode);
+    // Launch fireworks on interval
+    const { launchInterval } = this.atomStore.get(atoms.activeMode) as ModeSpec;
     const elapsed = performance.now() - this.lastLaunchTime;
-
     if (elapsed >= launchInterval) {
       this.launchFirework();
     }
@@ -51,10 +53,6 @@ export class PixiView extends PIXI.Container {
   initTicker = () => {
     PIXI.Ticker.shared.autoStart = false;
     PIXI.Ticker.shared.add(this.onTick);
-  };
-
-  initAtomStore = () => {
-    this.atomStore = getDefaultStore();
   };
 
   stopAnimation = () => {
@@ -73,8 +71,9 @@ export class PixiView extends PIXI.Container {
   };
 
   drawBackground = () => {
-    this.background = new Background();
-    this.addChild(this.background);
+    const background = new Background();
+    this.addChild(background);
+    return background;
   };
 
   launchFirework = () => {

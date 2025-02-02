@@ -8,6 +8,12 @@ export interface ModeSpec {
   fireworks: FireworkSpec[];
   label: string;
   launchInterval: number;
+  background: BackgroundSpec;
+}
+
+export interface BackgroundSpec {
+  enableStars: boolean;
+  glowColor: number;
 }
 
 export interface FireworkSpec {

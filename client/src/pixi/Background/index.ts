@@ -1,67 +1,101 @@
+import { getDefaultStore } from 'jotai';
 import * as PIXI from 'pixi.js';
 import { times } from 'remeda';
-import { COLOR_TWILIGHT } from '@/config/constants';
+import * as atoms from '@/atoms';
+import { BackgroundSpec } from '@/types/fireworks';
+import { mixColors } from '@/utils/color';
+import { lerp } from '@/utils/math';
 import { PixiView } from '../PixiView';
 import { Star } from './Star';
 
 export class Background extends PIXI.Container {
   static STAR_COUNT: number = 500;
 
-  gradient: PIXI.Graphics = new PIXI.Graphics();
-  stars: Star[];
+  atomStore: any;
+  wrapStars: PIXI.Container = new PIXI.Container();
+  glow: PIXI.Graphics = new PIXI.Graphics();
+  stars: Star[] = [];
+
+  enableStars: boolean = false;
 
   constructor() {
     super();
 
-    this.drawGradient();
-    this.stars = this.drawStars();
+    this.atomStore = getDefaultStore();
 
-    // TODO:
-    // - debounce for performance
-    // - fix stars to work with resizing window
+    this.drawGlow();
+    this.drawStars();
+
+    // TODO: debounce for performance
     window.addEventListener('resize', () => {
-      this.gradient.width = PixiView.width();
-      this.gradient.height = PixiView.height();
+      this.glow.width = PixiView.width();
+      this.glow.height = PixiView.height();
     });
   }
 
-  drawGradient = () => {
+  drawGlow = () => {
     const viewW = PixiView.width();
     const viewH = PixiView.height();
 
     const fill = new PIXI.FillGradient(0, 0, 0, viewH)
-      .addColorStop(0, 0x000000)
-      .addColorStop(1, COLOR_TWILIGHT);
+      .addColorStop(0, 0x666666)
+      .addColorStop(1, 0xffffff);
 
-    this.gradient = new PIXI.Graphics()
+    this.glow = new PIXI.Graphics()
       .rect(0, 0, viewW, viewH)
       .fill(fill);
 
-    this.addChild(this.gradient);
+    this.glow.tint = 0x000000;
+
+    this.addChild(this.glow);
   };
 
-  drawStars = () => (
-    times(Background.STAR_COUNT, () => {
+  drawStars = () => {
+    this.wrapStars.alpha = 0;
+    this.addChild(this.wrapStars);
+
+    this.stars = times(Background.STAR_COUNT, () => {
       const distance = Math.random();
       const star = new Star(distance);
 
       star.x = Math.random() * PixiView.width();
       star.y = Math.random() * PixiView.height();
 
-      this.addChild(star);
+      this.wrapStars.addChild(star);
       return star;
-    })
-  );
+    });
+  };
 
   update = () => {
-    const viewW = PixiView.width();
+    const {
+      enableStars,
+      glowColor,
+    } = this.atomStore.get(atoms.activeBackground) as BackgroundSpec;
 
-    this.stars.forEach((star) => {
-      star.x -= star.distance * 0.5;
+    this.glow.tint = mixColors(
+      this.glow.tint,
+      glowColor,
+      0.05,
+    );
 
-      if (star.x < 0) {
-        star.x += viewW;
-      }
-    });
+    // Fade stars based on whether they're enabled or not
+    this.wrapStars.alpha = lerp(
+      this.wrapStars.alpha,
+      enableStars ? 1 : 0,
+      0.05,
+    );
+
+    // Only parallax scroll stars if they're visible
+    if (this.wrapStars.alpha >= 0.01) {
+      const viewW = PixiView.width();
+
+      this.stars.forEach((star) => {
+        star.x -= star.distance * 0.5;
+
+        if (star.x < 0) {
+          star.x += viewW;
+        }
+      });
+    }
   };
 }

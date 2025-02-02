@@ -10,5 +10,3 @@ export const TARGET_Y_RANGE: Range = {
   min: 0.2,
   max: 0.5,
 };
-
-export const COLOR_TWILIGHT = 0x220033;

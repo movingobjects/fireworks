@@ -3,24 +3,17 @@ import { getVelToHitTarget } from '@/utils/math';
 import { Particle } from '../Particle';
 import { PixiView } from '../PixiView';
 
-type ProjectileProps = {
-  radius: number;
-  color: number;
-};
-
 export class Projectile extends Particle {
   graphic: PIXI.Graphics;
 
-  constructor({
-    radius,
-    color,
-  }: ProjectileProps) {
+  constructor() {
     super();
 
     // Draw
     this.graphic = new PIXI.Graphics();
-    this.graphic.circle(0, 0, radius);
-    this.graphic.fill({ color });
+    this.graphic.circle(0, 0, 2);
+    this.graphic.fill({ color: 0xffffff });
+    this.graphic.alpha = 0.75;
     this.addChild(this.graphic);
   }
 
