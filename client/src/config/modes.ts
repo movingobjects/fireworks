@@ -3,6 +3,61 @@ import { ModeSpec } from '@/types/fireworks';
 
 export const modes: ModeSpec[] = [
   {
+    id: 'cheers',
+    label: 'Cheers!',
+    launchInterval: 200,
+    background: {
+      enableStars: true,
+      glowColor: 0x220033,
+    },
+    fireworks: [
+      {
+        hueOpts: times(Math.floor(360 / 30), (index) => ({
+          min: index * 30,
+          max: (index + 1) * 30,
+        })),
+        saturationOpts: 1,
+        sparkCountOpts: {
+          min: 100,
+          max: 1000,
+        },
+        sparkRadiusOpts: [
+          {
+            min: 3,
+            max: 10,
+          },
+        ],
+        sparkMassOpts: [
+          {
+            min: 0.5,
+            max: 0.75,
+          },
+        ],
+        sparkFadeDelayOpts: [
+          {
+            min: 500,
+            max: 1250,
+          },
+        ],
+        sparkFadeDurationOpts: {
+          min: 750,
+          max: 4000,
+        },
+        sparkTextureOpts: ['circle'],
+        explosionMagnitudeOpts: [
+          {
+            min: 0,
+            max: 5,
+          },
+          {
+            min: 0,
+            max: 10,
+          },
+        ],
+      },
+    ],
+  },
+  {
     id: 'festive',
     label: 'Festive',
     launchInterval: 750,
@@ -48,8 +103,8 @@ export const modes: ModeSpec[] = [
         ],
         sparkFadeDurationOpts: [
           {
-            min: 750,
-            max: 1000,
+            min: 1000,
+            max: 5000,
           },
         ],
         sparkTextureOpts: ['circle'],
@@ -116,19 +171,21 @@ export const modes: ModeSpec[] = [
     ],
   },
   {
-    id: 'cheers',
-    label: 'Cheers!',
-    launchInterval: 200,
+    id: 'o-beautiful',
+    label: 'O Beautiful',
+    launchInterval: 100,
     background: {
       enableStars: true,
-      glowColor: 0x220033,
+      glowColor: 0x330022,
     },
     fireworks: [
       {
-        hueOpts: times(Math.floor(360 / 30), (index) => ({
-          min: index * 30,
-          max: (index + 1) * 30,
-        })),
+        hueOpts: [
+          {
+            min: 220,
+            max: 270,
+          },
+        ],
         saturationOpts: 1,
         sparkCountOpts: {
           min: 100,
@@ -136,8 +193,54 @@ export const modes: ModeSpec[] = [
         },
         sparkRadiusOpts: [
           {
-            min: 3,
-            max: 7,
+            min: 8,
+            max: 15,
+          },
+        ],
+        sparkMassOpts: [
+          {
+            min: 0.4,
+            max: 0.7,
+          },
+        ],
+        sparkFadeDelayOpts: [
+          {
+            min: 500,
+            max: 1250,
+          },
+        ],
+        sparkFadeDurationOpts: {
+          min: 750,
+          max: 4000,
+        },
+        sparkTextureOpts: ['star'],
+        explosionMagnitudeOpts: [
+          {
+            min: 0,
+            max: 5,
+          },
+          {
+            min: 0,
+            max: 10,
+          },
+        ],
+      },
+      {
+        hueOpts: [
+          {
+            min: 330,
+            max: 359,
+          },
+        ],
+        saturationOpts: 1,
+        sparkCountOpts: {
+          min: 100,
+          max: 1000,
+        },
+        sparkRadiusOpts: [
+          {
+            min: 8,
+            max: 15,
           },
         ],
         sparkMassOpts: [
@@ -156,7 +259,7 @@ export const modes: ModeSpec[] = [
           min: 750,
           max: 4000,
         },
-        sparkTextureOpts: ['circle'],
+        sparkTextureOpts: ['star'],
         explosionMagnitudeOpts: [
           {
             min: 0,
@@ -165,6 +268,43 @@ export const modes: ModeSpec[] = [
           {
             min: 0,
             max: 10,
+          },
+        ],
+      },
+      {
+        hueOpts: 0,
+        saturationOpts: 0,
+        sparkCountOpts: {
+          min: 100,
+          max: 500,
+        },
+        sparkRadiusOpts: [
+          {
+            min: 8,
+            max: 10,
+          },
+        ],
+        sparkMassOpts: [
+          {
+            min: 0.15,
+            max: 0.35,
+          },
+        ],
+        sparkFadeDelayOpts: [
+          {
+            min: 250,
+            max: 750,
+          },
+        ],
+        sparkFadeDurationOpts: {
+          min: 550,
+          max: 750,
+        },
+        sparkTextureOpts: ['star'],
+        explosionMagnitudeOpts: [
+          {
+            min: 0,
+            max: 5,
           },
         ],
       },
