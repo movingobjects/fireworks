@@ -24,6 +24,10 @@ export const modes: ModeSpec[] = [
         sparkRadiusOpts: [
           {
             min: 3,
+            max: 8,
+          },
+          {
+            min: 2,
             max: 10,
           },
         ],
@@ -171,6 +175,75 @@ export const modes: ModeSpec[] = [
     ],
   },
   {
+    id: 'lunar',
+    label: 'Lunar',
+    launchInterval: 200,
+    background: {
+      enableStars: true,
+      glowColor: 0x331100,
+    },
+    fireworks: [
+      {
+        hueOpts: [
+          {
+            min: 0,
+            max: 20,
+          },
+          {
+            min: 20,
+            max: 40,
+          },
+        ],
+        saturationOpts: 1,
+        sparkCountOpts: {
+          min: 500,
+          max: 1000,
+        },
+        sparkRadiusOpts: [
+          {
+            min: 3,
+            max: 5,
+          },
+        ],
+        sparkMassOpts: [
+          {
+            min: 0.25,
+            max: 0.5,
+          },
+        ],
+        sparkFadeDelayOpts: [
+          {
+            min: 500,
+            max: 2000,
+          },
+        ],
+        sparkFadeDurationOpts: {
+          min: 1000,
+          max: 4000,
+        },
+        sparkTextureOpts: ['circle'],
+        explosionMagnitudeOpts: [
+          {
+            min: 0,
+            max: 5,
+          },
+          {
+            min: 0,
+            max: 7,
+          },
+          {
+            min: 0,
+            max: 10,
+          },
+          {
+            min: 10,
+            max: 20,
+          },
+        ],
+      },
+    ],
+  },
+  {
     id: 'o-beautiful',
     label: 'O Beautiful',
     launchInterval: 100,
@@ -189,7 +262,7 @@ export const modes: ModeSpec[] = [
         saturationOpts: 1,
         sparkCountOpts: {
           min: 100,
-          max: 1000,
+          max: 500,
         },
         sparkRadiusOpts: [
           {
@@ -235,7 +308,7 @@ export const modes: ModeSpec[] = [
         saturationOpts: 1,
         sparkCountOpts: {
           min: 100,
-          max: 1000,
+          max: 500,
         },
         sparkRadiusOpts: [
           {
@@ -276,7 +349,7 @@ export const modes: ModeSpec[] = [
         saturationOpts: 0,
         sparkCountOpts: {
           min: 100,
-          max: 500,
+          max: 250,
         },
         sparkRadiusOpts: [
           {
