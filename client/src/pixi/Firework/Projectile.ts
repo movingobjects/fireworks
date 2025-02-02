@@ -1,5 +1,4 @@
 import * as PIXI from 'pixi.js';
-import { Vector } from '@/types/math';
 import { getVelToHitTarget } from '@/utils/math';
 import { Particle } from '../Particle';
 import { PixiView } from '../PixiView';

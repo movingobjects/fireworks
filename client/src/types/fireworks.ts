@@ -5,32 +5,19 @@ export type StringOptions = string | StringOptions[];
 
 export interface ModeSpec {
   id: string;
+  fireworks: FireworkSpec[];
   label: string;
   launchInterval: number;
-  fireworks: FireworkSpec[];
 }
 
 export interface FireworkSpec {
-  projectile: ProjectileSpec;
-  explosion: ExplosionSpec;
-}
-
-export interface ProjectileSpec {
-  color: number;
-  radiusOpts: NumberOptions;
-  targetXOpts: NumberOptions;
-  targetYOpts: NumberOptions;
-}
-
-export interface ExplosionSpec {
-  maxMagnitudeOpts: NumberOptions;
+  id: string;
+  hueOpts: NumberOptions;
+  explosionMagnitudeOpts: NumberOptions;
   sparkCountOpts: NumberOptions;
-  sparkDragOpts: NumberOptions;
+  sparkRadiusOpts: NumberOptions;
+  sparkMassOpts: NumberOptions;
   sparkFadeDelayOpts: NumberOptions;
   sparkFadeDurationOpts: NumberOptions;
-  sparkFadeRadiusMultOpts: NumberOptions;
-  sparkHueOpts: NumberOptions;
-  sparkRadiusOpts: NumberOptions;
   sparkTextureOpts: StringOptions;
-  upwardMagnitudeOpts: NumberOptions;
 }

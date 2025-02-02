@@ -1,6 +1,6 @@
 import { Range } from '@/types/math';
 
-export const GRAVITY = 0.25;
+export const GRAVITY = 0.1;
 
 export const TARGET_X_RANGE: Range = {
   min: 0.2,

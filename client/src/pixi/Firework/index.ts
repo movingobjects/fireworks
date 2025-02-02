@@ -1,6 +1,14 @@
 import * as PIXI from 'pixi.js';
 import { times } from 'remeda';
-import { FireworkSpec } from '@/types/fireworks';
+import {
+  TARGET_X_RANGE,
+  TARGET_Y_RANGE,
+} from '@/config/constants';
+import {
+  FireworkSpec,
+  NumberOptions,
+  StringOptions,
+} from '@/types/fireworks';
 import {
   collapseNum,
   collapseString,
@@ -8,6 +16,7 @@ import {
   shallowCollapseString,
 } from '@/utils/collapse';
 import { fromHsv } from '@/utils/color';
+import { getRandomInRange } from '@/utils/math';
 import { Projectile } from './Projectile';
 import { Spark } from './Spark';
 
@@ -15,6 +24,15 @@ export class Firework extends PIXI.Container {
   projectile?: Projectile;
   sparks: Spark[] = [];
   spec: FireworkSpec;
+
+  sparkCount: number;
+  hueOpts: NumberOptions;
+  sparkRadiusOpts: NumberOptions;
+  explosionMagnitudeOpts: NumberOptions;
+  sparkTextureOpts: StringOptions;
+  sparkFadeDelayOpts: NumberOptions;
+  sparkFadeDurationOpts: NumberOptions;
+  sparkMassOpts: NumberOptions;
 
   constructor(
     x: number,
@@ -24,26 +42,32 @@ export class Firework extends PIXI.Container {
     super();
     this.spec = spec;
 
+    this.sparkCount = collapseNum(spec.sparkCountOpts);
+    this.hueOpts = shallowCollapseNum(spec.hueOpts);
+    this.sparkRadiusOpts = shallowCollapseNum(spec.sparkRadiusOpts);
+    this.explosionMagnitudeOpts = shallowCollapseNum(spec.explosionMagnitudeOpts);
+    this.sparkTextureOpts = shallowCollapseString(spec.sparkTextureOpts);
+    this.sparkFadeDelayOpts = shallowCollapseNum(spec.sparkFadeDelayOpts);
+    this.sparkFadeDurationOpts = shallowCollapseNum(spec.sparkFadeDurationOpts);
+    this.sparkMassOpts = shallowCollapseNum(spec.sparkMassOpts);
+
     this.drawProjectile(x, y);
   }
 
   drawProjectile = (x: number, y: number) => {
-    const {
-      color,
-      targetXOpts,
-      targetYOpts,
-      radiusOpts,
-    } = this.spec.projectile;
-
     this.projectile = new Projectile({
-      radius: collapseNum(radiusOpts),
-      color,
+      radius: getRandomInRange({
+        min: 1,
+        max: 3,
+      }),
+      color: fromHsv(collapseNum(this.hueOpts)),
     });
+
     this.projectile.x = x;
     this.projectile.y = y;
     this.projectile.launchAt(
-      collapseNum(targetXOpts),
-      collapseNum(targetYOpts),
+      collapseNum(TARGET_X_RANGE),
+      collapseNum(TARGET_Y_RANGE),
     );
 
     this.addChild(this.projectile);
@@ -59,39 +83,16 @@ export class Firework extends PIXI.Container {
   };
 
   drawSparks = () => {
-    const {
-      maxMagnitudeOpts,
-      sparkCountOpts,
-      sparkHueOpts,
-      sparkFadeDelayOpts,
-      sparkFadeDurationOpts,
-      sparkFadeRadiusMultOpts,
-      sparkDragOpts,
-      sparkRadiusOpts,
-      sparkTextureOpts,
-      upwardMagnitudeOpts,
-    } = this.spec.explosion;
-
-    const sparksCount = collapseNum(sparkCountOpts);
-    const sparkHueCollapsed = shallowCollapseNum(sparkHueOpts);
-    const sparkRadiusCollapsd = shallowCollapseNum(sparkRadiusOpts);
-    const maxMagnitudeCollapsed = shallowCollapseNum(maxMagnitudeOpts);
-    const textureCollapsed = shallowCollapseString(sparkTextureOpts);
-    const fadeDelayCollapsed = shallowCollapseNum(sparkFadeDelayOpts);
-    const fadeRadiusMultCollapsed = shallowCollapseNum(sparkFadeRadiusMultOpts);
-
-    times(sparksCount, () => {
+    times(this.sparkCount, () => {
       const spark = new Spark({
         projectile: this.projectile!,
-        texture: collapseString(textureCollapsed),
-        color: fromHsv(collapseNum(sparkHueCollapsed)),
-        radius: collapseNum(sparkRadiusCollapsd),
-        drag: collapseNum(sparkDragOpts),
-        fadeDelay: collapseNum(fadeDelayCollapsed),
-        fadeDuration: collapseNum(sparkFadeDurationOpts),
-        fadeRadiusMult: collapseNum(fadeRadiusMultCollapsed),
-        explosionMagnitude: collapseNum(maxMagnitudeCollapsed),
-        upwardMagnitude: collapseNum(upwardMagnitudeOpts),
+        texture: collapseString(this.sparkTextureOpts),
+        color: fromHsv(collapseNum(this.hueOpts)),
+        radius: collapseNum(this.sparkRadiusOpts),
+        mass: collapseNum(this.sparkMassOpts),
+        fadeDelay: collapseNum(this.sparkFadeDelayOpts),
+        fadeDuration: collapseNum(this.sparkFadeDurationOpts),
+        explosionMagnitude: collapseNum(this.explosionMagnitudeOpts),
       });
       this.addChild(spark);
       this.sparks.push(spark);

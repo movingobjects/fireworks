@@ -16,12 +16,10 @@ type SparkProps = {
   texture: string;
   color: number;
   radius: number;
-  drag: number;
+  mass: number;
   fadeDelay: number;
   fadeDuration: number;
-  fadeRadiusMult: number;
   explosionMagnitude: number;
-  upwardMagnitude: number;
 };
 
 export class Spark extends Particle {
@@ -30,28 +28,24 @@ export class Spark extends Particle {
   explodeTime: number;
   fadeDelay: number;
   fadeDuration: number;
-  fadeRadiusMult: number;
 
   constructor({
     projectile,
     texture,
     color,
     radius,
-    drag,
+    mass,
     fadeDelay,
     fadeDuration,
-    fadeRadiusMult,
     explosionMagnitude,
-    upwardMagnitude,
   }: SparkProps) {
     super();
 
     // Init values
-    this.drag = drag;
+    this.mass = mass;
     this.color = color;
     this.fadeDelay = fadeDelay;
     this.fadeDuration = fadeDuration;
-    this.fadeRadiusMult = fadeRadiusMult;
     this.x = projectile.x;
     this.y = projectile.y;
 
@@ -70,19 +64,17 @@ export class Spark extends Particle {
     this.explode(
       projectile,
       explosionMagnitude,
-      upwardMagnitude,
     );
   }
 
   explode = (
     projectile: Projectile,
     explosionMagnitude: number,
-    upwardMagnitude: number,
   ) => {
     const explosionVelocity = this.getExplosionVelocity(explosionMagnitude);
 
     this.velocity.x = (projectile.velocity.x / 2) + explosionVelocity.x;
-    this.velocity.y = (projectile.velocity.y / 2) + explosionVelocity.y - upwardMagnitude;
+    this.velocity.y = (projectile.velocity.y / 2) + explosionVelocity.y;
   };
 
   updateFade = () => {
@@ -91,9 +83,6 @@ export class Spark extends Particle {
 
     const amt = norm(elapsed, this.fadeDelay, this.fadeDelay + this.fadeDuration);
     this.tint = mixColors(this.color, COLOR_TWILIGHT, clamp(amt));
-
-    this.graphic.width *= this.fadeRadiusMult;
-    this.graphic.height *= this.fadeRadiusMult;
   };
 
   getExplosionVelocity = (magnitude: number) => (

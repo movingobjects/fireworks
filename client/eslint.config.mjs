@@ -26,10 +26,17 @@ export default [
     rules: {
       '@stylistic/array-bracket-newline': ['warn', { multiline: true }],
       '@stylistic/array-bracket-spacing': ['warn', 'never'],
-      '@stylistic/array-element-newline': ['warn', { minItems: 3 }],
+      '@stylistic/array-element-newline': [
+        'warn',
+        {
+          multiline: true,
+          minItems: 3,
+        },
+      ],
       '@stylistic/arrow-parens': ['warn', 'always'],
       '@stylistic/arrow-spacing': [
-        'warn', {
+        'warn',
+        {
           before: true,
           after: true,
         },
@@ -38,7 +45,8 @@ export default [
       '@stylistic/brace-style': ['warn', '1tbs'],
       '@stylistic/comma-dangle': ['warn', 'always-multiline'],
       '@stylistic/comma-spacing': [
-        'warn', {
+        'warn',
+        {
           before: false,
           after: true,
         },
@@ -57,14 +65,16 @@ export default [
       '@stylistic/indent': ['warn', 2],
       '@stylistic/jsx-quotes': ['warn', 'prefer-double'],
       '@stylistic/key-spacing': [
-        'warn', {
+        'warn',
+        {
           beforeColon: false,
           afterColon: true,
           mode: 'strict',
         },
       ],
       '@stylistic/keyword-spacing': [
-        'warn', {
+        'warn',
+        {
           before: true,
           after: true,
         },
@@ -84,7 +94,8 @@ export default [
       '@stylistic/no-mixed-spaces-and-tabs': ['warn'],
       '@stylistic/no-multi-spaces': ['warn'],
       '@stylistic/no-multiple-empty-lines': [
-        'warn', {
+        'warn',
+        {
           max: 1,
           maxBOF: 0,
           maxEOF: 0,
@@ -95,7 +106,8 @@ export default [
       '@stylistic/no-whitespace-before-property': ['warn'],
       '@stylistic/nonblock-statement-body-position': ['warn', 'beside'],
       '@stylistic/object-curly-newline': [
-        'warn', {
+        'warn',
+        {
           ObjectExpression: {
             multiline: true,
             minProperties: 2,
@@ -140,7 +152,8 @@ export default [
       '@stylistic/rest-spread-spacing': ['warn', 'never'],
       '@stylistic/semi': ['warn', 'always'],
       '@stylistic/semi-spacing': [
-        'warn', {
+        'warn',
+        {
           before: false,
           after: true,
         },
@@ -151,7 +164,8 @@ export default [
       '@stylistic/space-in-parens': ['warn', 'never'],
       '@stylistic/space-infix-ops': ['warn', { int32Hint: false }],
       '@stylistic/space-unary-ops': [
-        'warn', {
+        'warn',
+        {
           words: true,
           nonwords: false,
         },
@@ -165,7 +179,8 @@ export default [
       'consistent-return': 'warn',
       'import/no-anonymous-default-export': ['off'],
       'import/order': [
-        'warn', {
+        'warn',
+        {
           'newlines-between': 'never',
           groups: [
             'builtin',
@@ -188,7 +203,8 @@ export default [
       'modules-newlines/export-declaration-newline': 'warn',
       'no-unreachable': 'warn',
       'no-unused-vars': [
-        'warn', {
+        'warn',
+        {
           vars: 'all',
           args: 'none',
           ignoreRestSiblings: true,
@@ -196,14 +212,16 @@ export default [
       ],
       'react-hooks/exhaustive-deps': 'warn',
       'react/boolean-prop-naming': [
-        'off', {
+        'off',
+        {
           propTypeNames: ['bool', 'mutuallyExclusiveTrueProps'],
           rule: '^(is|has)[A-Z]([A-Za-z0-9]?)+',
           message: '',
         },
       ],
       'react/button-has-type': [
-        'warn', {
+        'warn',
+        {
           button: true,
           submit: true,
           reset: false,
@@ -216,7 +234,8 @@ export default [
       'react/forbid-foreign-prop-types': ['warn', { allowInPropTypes: true }],
       'react/forward-ref-uses-ref': 'off',
       'react/function-component-definition': [
-        'warn', {
+        'warn',
+        {
           namedComponents: ['function-declaration', 'function-expression'],
           unnamedComponents: 'function-expression',
         },
@@ -228,13 +247,15 @@ export default [
       'react/jsx-closing-bracket-location': ['warn', 'after-props'],
       'react/jsx-closing-tag-location': 'warn',
       'react/jsx-curly-brace-presence': [
-        'warn', {
+        'warn',
+        {
           props: 'never',
           children: 'never',
         },
       ],
       'react/jsx-curly-newline': [
-        'warn', {
+        'warn',
+        {
           multiline: 'consistent',
           singleline: 'consistent',
         },
@@ -250,7 +271,8 @@ export default [
       'react/jsx-first-prop-new-line': ['warn', 'multiline-multiprop'],
       'react/jsx-fragments': ['warn', 'syntax'],
       'react/jsx-handler-names': [
-        'warn', {
+        'warn',
+        {
           eventHandlerPrefix: 'on',
           eventHandlerPropPrefix: 'on',
         },
@@ -260,14 +282,16 @@ export default [
       'react/jsx-key': 'warn',
       'react/jsx-max-depth': 'off',
       'react/jsx-max-props-per-line': [
-        'warn', {
+        'warn',
+        {
           maximum: 1,
           when: 'multiline',
         },
       ],
       'react/jsx-newline': 'off',
       'react/jsx-no-bind': [
-        'warn', {
+        'warn',
+        {
           ignoreRefs: true,
           allowArrowFunctions: true,
           allowFunctions: false,
@@ -281,7 +305,8 @@ export default [
       'react/jsx-no-leaked-render': 'off',
       'react/jsx-no-literals': ['off', { noStrings: true }],
       'react/jsx-no-script-url': [
-        'warn', [
+        'warn',
+        [
           {
             name: 'Link',
             props: ['to'],
@@ -294,7 +319,8 @@ export default [
       'react/jsx-no-useless-fragment': 'warn',
       'react/jsx-one-expression-per-line': ['warn', { allow: 'single-child' }],
       'react/jsx-pascal-case': [
-        'warn', {
+        'warn',
+        {
           allowAllCaps: true,
           ignore: [],
         },
@@ -302,7 +328,8 @@ export default [
       'react/jsx-props-no-multi-spaces': 'warn',
       'react/jsx-props-no-spread-multi': 'off',
       'react/jsx-props-no-spreading': [
-        'warn', {
+        'warn',
+        {
           html: 'enforce',
           custom: 'enforce',
           explicitSpread: 'ignore',
@@ -312,7 +339,8 @@ export default [
       'react/jsx-sort-default-props': ['off', { ignoreCase: true }],
       'react/jsx-sort-prop-types': 'off',
       'react/jsx-sort-props': [
-        'warn', {
+        'warn',
+        {
           ignoreCase: true,
           callbacksLast: true,
           shorthandFirst: false,
@@ -323,7 +351,8 @@ export default [
       ],
       'react/jsx-space-before-closing': ['off', 'always'],
       'react/jsx-tag-spacing': [
-        'warn', {
+        'warn',
+        {
           closingSlash: 'never',
           beforeSelfClosing: 'always',
           afterOpening: 'never',
@@ -333,7 +362,8 @@ export default [
       'react/jsx-uses-react': ['warn'],
       'react/jsx-uses-vars': 'warn',
       'react/jsx-wrap-multilines': [
-        'warn', {
+        'warn',
+        {
           declaration: 'parens-new-line',
           assignment: 'parens-new-line',
           return: 'parens-new-line',
@@ -344,7 +374,8 @@ export default [
         },
       ],
       'react/jsx-wrap-multilines': [
-        'warn', {
+        'warn',
+        {
           declaration: 'parens-new-line',
           assignment: 'parens-new-line',
           return: 'parens-new-line',
@@ -383,7 +414,8 @@ export default [
       'react/no-unstable-nested-components': 'warn',
       'react/no-unused-class-component-methods': 'warn',
       'react/no-unused-prop-types': [
-        'warn', {
+        'warn',
+        {
           customValidators: [],
           skipShapeProps: true,
         },
@@ -395,7 +427,8 @@ export default [
       'react/prefer-read-only-props': 'warn',
       'react/prefer-stateless-function': ['warn', { ignorePureComponents: true }],
       'react/prop-types': [
-        'warn', {
+        'warn',
+        {
           ignore: [],
           customValidators: [],
           skipUndeclared: false,
@@ -407,7 +440,8 @@ export default [
       'react/require-render-return': 'warn',
       'react/self-closing-comp': 'warn',
       'react/sort-comp': [
-        'warn', {
+        'warn',
+        {
           order: [
             'static-variables',
             'static-methods',
@@ -456,7 +490,8 @@ export default [
       ],
       'react/sort-default-props': ['off', { ignoreCase: false }],
       'react/sort-prop-types': [
-        'off', {
+        'off',
+        {
           ignoreCase: true,
           callbacksLast: false,
           requiredFirst: false,
@@ -468,7 +503,8 @@ export default [
       'react/style-prop-object': 'warn',
       'react/void-dom-elements-no-children': 'warn',
       'sort-imports': [
-        'warn', {
+        'warn',
+        {
           ignoreCase: true,
           ignoreDeclarationSort: true,
           ignoreMemberSort: false,
