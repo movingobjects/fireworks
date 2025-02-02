@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { times } from 'remeda';
-import { COLOR_TWILIGHT } from '@/constants';
+import { COLOR_TWILIGHT } from '@/config/constants';
 import { PixiView } from '../PixiView';
 import { Star } from './Star';
 

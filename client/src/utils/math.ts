@@ -1,4 +1,4 @@
-import { GRAVITY } from '@/constants';
+import { GRAVITY } from '@/config/constants';
 import {
   Range,
   Vector,
@@ -15,12 +15,13 @@ import {
 export function getVelToHitTarget(
   x: number,
   y: number,
-  target: Vector,
+  targetX: number,
+  targetY: number,
 ): Vector {
-  const deltaX = target.x - x;
-  const deltaY = target.y - y;
+  const deltaX = targetX - x;
+  const deltaY = targetY - y;
 
-  // LLM'd formula for finding velocity.y to hit target.y
+  // LLM'd formula for finding velocity.y to hit targetY
   // when velocity.y hits 0 (peak of arc)
   let targetVelY = Math.sqrt(2 * GRAVITY * Math.abs(deltaY));
 
@@ -31,7 +32,7 @@ export function getVelToHitTarget(
   // Approximation of number of frames to reach peak of arc
   const frameCount = Math.abs(targetVelY / GRAVITY);
 
-  // Approximation of velocity.x needed to reach target.x
+  // Approximation of velocity.x needed to reach targetX
   // at the same time projectile reaches peak of arc
   const targetVelX = deltaX / frameCount;
 

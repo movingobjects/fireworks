@@ -1,0 +1,38 @@
+@use '../../../styles/fonts';
+
+.wrap {
+
+  $colorLabel: #86b;
+  $colorSelectedLabel: white;
+  $colorSelectedBg: #caf;
+
+  appearance: none;
+  cursor: pointer;
+
+  padding: 1em 2em;
+
+  background-color: rgba($colorSelectedBg, 0);
+  border: none;
+  color: $colorLabel;
+  font-family: fonts.$sans;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 0.65em;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba($colorSelectedBg, 0.05);
+  }
+  &:active {
+    background-color: rgba($colorSelectedBg, 0.035);
+    transition: none;
+  }
+  &.selected {
+    background-color: rgba($colorSelectedBg, 0.15);
+    color: $colorSelectedLabel;
+  }
+
+}

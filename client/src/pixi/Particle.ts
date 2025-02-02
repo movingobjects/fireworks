@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { GRAVITY } from '@/constants';
+import { GRAVITY } from '@/config/constants';
 import { Vector } from '@/types/math';
 
 export class Particle extends PIXI.Container {

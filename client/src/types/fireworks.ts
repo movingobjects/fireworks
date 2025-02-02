@@ -1,10 +1,14 @@
-import {
-  Range,
-  Vector,
-} from './math';
+import { Range } from './math';
 
 export type NumberOptions = number | Range | NumberOptions[];
 export type StringOptions = string | StringOptions[];
+
+export interface ModeSpec {
+  id: string;
+  label: string;
+  launchInterval: number;
+  fireworks: FireworkSpec[];
+}
 
 export interface FireworkSpec {
   projectile: ProjectileSpec;
@@ -14,7 +18,8 @@ export interface FireworkSpec {
 export interface ProjectileSpec {
   color: number;
   radiusOpts: NumberOptions;
-  target: Vector;
+  targetXOpts: NumberOptions;
+  targetYOpts: NumberOptions;
 }
 
 export interface ExplosionSpec {

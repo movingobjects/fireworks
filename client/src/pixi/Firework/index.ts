@@ -30,7 +30,8 @@ export class Firework extends PIXI.Container {
   drawProjectile = (x: number, y: number) => {
     const {
       color,
-      target,
+      targetXOpts,
+      targetYOpts,
       radiusOpts,
     } = this.spec.projectile;
 
@@ -40,7 +41,10 @@ export class Firework extends PIXI.Container {
     });
     this.projectile.x = x;
     this.projectile.y = y;
-    this.projectile.launchAt(target);
+    this.projectile.launchAt(
+      collapseNum(targetXOpts),
+      collapseNum(targetYOpts),
+    );
 
     this.addChild(this.projectile);
   };

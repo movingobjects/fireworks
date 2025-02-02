@@ -1,4 +1,4 @@
-import { Range } from './types/math';
+import { Range } from '@/types/math';
 
 export const GRAVITY = 0.25;
 

@@ -1,0 +1,25 @@
+@use '../../styles/fonts';
+
+.wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 5em;
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+
+  background-color: rgba(#ccf, 0.05);
+  border: 1px solid rgba(white, 0.1);
+  border-radius: 1em;
+  padding: 0.5em;
+  backdrop-filter: blur(5px);
+
+  h2 {
+    color: white;
+    font-size: 14px;
+    margin: 0;
+  }
+
+}

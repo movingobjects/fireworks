@@ -25,14 +25,12 @@ export class Projectile extends Particle {
     this.addChild(this.graphic);
   }
 
-  launchAt = (target: Vector) => {
+  launchAt = (targetX: number, targetY: number) => {
     const velocity = getVelToHitTarget(
       this.x,
       this.y,
-      {
-        x: target.x * PixiView.width(),
-        y: target.y * PixiView.height(),
-      },
+      targetX * PixiView.width(),
+      targetY * PixiView.height(),
     );
     this.velocity.x = velocity.x;
     this.velocity.y = velocity.y;

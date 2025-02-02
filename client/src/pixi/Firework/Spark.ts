@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { COLOR_TWILIGHT } from '@/constants';
+import { COLOR_TWILIGHT } from '@/config/constants';
 import { mixColors } from '@/utils/color';
 import {
   clamp,
