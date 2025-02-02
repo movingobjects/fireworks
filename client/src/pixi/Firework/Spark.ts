@@ -12,7 +12,7 @@ type SparkProps = {
   texture: string;
   color: string;
   radius: number;
-  mass: number;
+  drag: number;
   explosionMagnitude: number;
   upwardMagnitude: number;
 };
@@ -25,14 +25,14 @@ export class Spark extends Particle {
     texture,
     color,
     radius,
-    mass,
+    drag,
     explosionMagnitude,
     upwardMagnitude,
   }: SparkProps) {
     super();
 
     // Init values
-    this.mass = mass;
+    this.drag = drag;
     this.x = projectile.x;
     this.y = projectile.y;
 

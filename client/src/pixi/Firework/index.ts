@@ -32,13 +32,11 @@ export class Firework extends PIXI.Container {
       color,
       target,
       radiusOpts,
-      explodeAtVelocityYOpts,
     } = this.spec.projectile;
 
     this.projectile = new Projectile({
       radius: collapseNum(radiusOpts),
       color,
-      explodeAtVelocityY: collapseNum(explodeAtVelocityYOpts),
     });
     this.projectile.x = x;
     this.projectile.y = y;
@@ -61,7 +59,7 @@ export class Firework extends PIXI.Container {
       maxMagnitudeOpts,
       sparkCountOpts,
       sparkHueOpts,
-      sparkMassOpts,
+      sparkDragOpts,
       sparkRadiusOpts,
       sparkTextureOpts,
       upwardMagnitudeOpts,
@@ -79,7 +77,7 @@ export class Firework extends PIXI.Container {
         texture: collapseString(textureCollapsed),
         color: hsvToHex(collapseNum(sparkHueCollapsed)),
         radius: collapseNum(sparkRadiusCollapsd),
-        mass: collapseNum(sparkMassOpts),
+        drag: collapseNum(sparkDragOpts),
         explosionMagnitude: collapseNum(maxMagnitudeCollapsed),
         upwardMagnitude: collapseNum(upwardMagnitudeOpts),
       });

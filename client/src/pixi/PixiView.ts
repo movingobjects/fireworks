@@ -2,7 +2,12 @@ import { getDefaultStore } from 'jotai';
 import * as PIXI from 'pixi.js';
 import { times } from 'remeda';
 import * as atoms from '@/atoms';
+import {
+  TARGET_X_RANGE,
+  TARGET_Y_RANGE,
+} from '@/constants';
 import { FireworkSpec } from '@/types/fireworks';
+import { getRandomInRange } from '@/utils/math';
 import { Background } from './Background';
 import { Firework } from './Firework';
 
@@ -115,13 +120,9 @@ export class PixiView extends PIXI.Container {
           min: 1,
           max: 2,
         },
-        explodeAtVelocityYOpts: {
-          min: 0,
-          max: 5,
-        },
         target: {
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
+          x: getRandomInRange(TARGET_X_RANGE),
+          y: getRandomInRange(TARGET_Y_RANGE),
         },
       },
       explosion: {
@@ -135,13 +136,13 @@ export class PixiView extends PIXI.Container {
         })),
         sparkRadiusOpts: [
           {
-            min: 5,
+            min: 3,
             max: 10,
           },
         ],
-        sparkMassOpts: {
-          min: 0.15,
-          max: 0.25,
+        sparkDragOpts: {
+          min: 0.02,
+          max: 0.1,
         },
         sparkTextureOpts: ['circle'],
         upwardMagnitudeOpts: {
@@ -152,14 +153,9 @@ export class PixiView extends PIXI.Container {
           {
             min: 1,
             max: 10,
-          },
-          {
-            min: 5,
+          }, {
+            min: 15,
             max: 15,
-          },
-          {
-            min: 20,
-            max: 20,
           },
         ],
       },

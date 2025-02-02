@@ -1,9 +1,9 @@
 import * as PIXI from 'pixi.js';
-import { Physics } from '@/constants';
+import { GRAVITY } from '@/constants';
 import { Vector } from '@/types/math';
 
 export class Particle extends PIXI.Container {
-  mass: number = 1;
+  drag: number = 0;
   velocity: Vector = {
     x: 0,
     y: 0,
@@ -11,12 +11,11 @@ export class Particle extends PIXI.Container {
 
   applyPhysics = () => {
     // Apply gravity & friction
-    this.velocity.y += Physics.GRAVITY;
+    this.velocity.y += GRAVITY;
 
-    const drag = Math.pow(Physics.FRICTION, 1 / this.mass);
-
-    this.velocity.x *= drag;
-    this.velocity.y *= drag;
+    // Apply drag (air resistance)
+    this.velocity.x *= (1 - this.drag);
+    this.velocity.y *= (1 - this.drag);
 
     // Update pos from velocity
     this.x += this.velocity.x;
