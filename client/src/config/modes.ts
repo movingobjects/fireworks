@@ -3,8 +3,121 @@ import { ModeSpec } from '@/types/fireworks';
 
 export const modes: ModeSpec[] = [
   {
-    id: 'mode-1',
-    label: 'Celebration',
+    id: 'festive',
+    label: 'Festive',
+    launchInterval: 750,
+    background: {
+      enableStars: true,
+      glowColor: 0x223355,
+    },
+    fireworks: [
+      {
+        hueOpts: [
+          {
+            min: 35,
+            max: 40,
+          },
+        ],
+        saturationOpts: [
+          {
+            min: 0.35,
+            max: 0.65,
+          },
+        ],
+        sparkCountOpts: {
+          min: 500,
+          max: 1500,
+        },
+        sparkRadiusOpts: [
+          {
+            min: 1,
+            max: 10,
+          },
+        ],
+        sparkMassOpts: [
+          {
+            min: 0.75,
+            max: 0.85,
+          },
+        ],
+        sparkFadeDelayOpts: [
+          {
+            min: 1000,
+            max: 3000,
+          },
+        ],
+        sparkFadeDurationOpts: [
+          {
+            min: 750,
+            max: 1000,
+          },
+        ],
+        sparkTextureOpts: ['circle'],
+        explosionMagnitudeOpts: [
+          {
+            min: 0,
+            max: 5,
+          },
+          {
+            min: 0,
+            max: 10,
+          },
+        ],
+      },
+      {
+        hueOpts: [
+          {
+            min: 35,
+            max: 40,
+          },
+        ],
+        saturationOpts: [
+          {
+            min: 0.1,
+            max: 0.2,
+          },
+        ],
+        sparkCountOpts: {
+          min: 500,
+          max: 1500,
+        },
+        sparkRadiusOpts: [
+          {
+            min: 2,
+            max: 8,
+          },
+        ],
+        sparkMassOpts: [
+          {
+            min: 0.1,
+            max: 0.6,
+          },
+        ],
+        sparkFadeDelayOpts: [
+          {
+            min: 250,
+            max: 1000,
+          },
+        ],
+        sparkFadeDurationOpts: [
+          {
+            min: 750,
+            max: 2750,
+          },
+        ],
+        sparkTextureOpts: ['circle'],
+        explosionMagnitudeOpts: [
+          {
+            min: 0,
+            max: 5,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'cheers',
+    label: 'Cheers!',
     launchInterval: 200,
     background: {
       enableStars: true,
@@ -12,11 +125,11 @@ export const modes: ModeSpec[] = [
     },
     fireworks: [
       {
-        id: 'a',
         hueOpts: times(Math.floor(360 / 30), (index) => ({
           min: index * 30,
           max: (index + 1) * 30,
         })),
+        saturationOpts: 1,
         sparkCountOpts: {
           min: 100,
           max: 1000,
@@ -58,26 +171,29 @@ export const modes: ModeSpec[] = [
     ],
   },
   {
-    id: 'mode-2',
+    id: 'knockout',
     label: 'Knockout!',
     launchInterval: 400,
     background: {
       enableStars: false,
-      glowColor: 0x330066,
+      glowColor: 0x000022,
     },
     fireworks: [
       {
-        id: 'a',
         hueOpts: [
           {
             min: 0,
             max: 360,
           },
         ],
-        sparkCountOpts: {
-          min: 250,
-          max: 500,
-        },
+        saturationOpts: 1,
+        sparkCountOpts: [
+          {
+            min: 250,
+            max: 500,
+          },
+          750,
+        ],
         sparkRadiusOpts: [
           {
             min: 10,
@@ -89,17 +205,17 @@ export const modes: ModeSpec[] = [
           max: 0.75,
         },
         sparkFadeDelayOpts: {
-          min: 500,
-          max: 1250,
+          min: 250,
+          max: 500,
         },
         sparkFadeDurationOpts: {
-          min: 1000,
-          max: 2000,
+          min: 2000,
+          max: 3000,
         },
         sparkTextureOpts: [['x', 'star']],
         explosionMagnitudeOpts: [
           {
-            min: 5,
+            min: 3,
             max: 30,
           },
         ],
@@ -107,7 +223,7 @@ export const modes: ModeSpec[] = [
     ],
   },
   {
-    id: 'mode-3',
+    id: 'mind-camera',
     label: 'Mind Camera',
     launchInterval: 300,
     background: {
@@ -116,13 +232,13 @@ export const modes: ModeSpec[] = [
     },
     fireworks: [
       {
-        id: 'a',
         hueOpts: [
           {
             min: 10,
             max: 22,
           },
         ],
+        saturationOpts: 1,
         sparkCountOpts: {
           min: 25,
           max: 100,

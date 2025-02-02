@@ -26,6 +26,7 @@ export class Firework extends PIXI.Container {
 
   sparkCount: number;
   hueOpts: NumberOptions;
+  saturationOpts: NumberOptions;
   sparkRadiusOpts: NumberOptions;
   explosionMagnitudeOpts: NumberOptions;
   sparkTextureOpts: StringOptions;
@@ -43,6 +44,7 @@ export class Firework extends PIXI.Container {
 
     this.sparkCount = collapseNum(spec.sparkCountOpts);
     this.hueOpts = shallowCollapseNum(spec.hueOpts);
+    this.saturationOpts = shallowCollapseNum(spec.saturationOpts);
     this.sparkRadiusOpts = shallowCollapseNum(spec.sparkRadiusOpts);
     this.explosionMagnitudeOpts = shallowCollapseNum(spec.explosionMagnitudeOpts);
     this.sparkTextureOpts = shallowCollapseString(spec.sparkTextureOpts);
@@ -80,7 +82,10 @@ export class Firework extends PIXI.Container {
       const spark = new Spark({
         projectile: this.projectile!,
         texture: collapseString(this.sparkTextureOpts),
-        color: fromHsv(collapseNum(this.hueOpts)),
+        color: fromHsv(
+          collapseNum(this.hueOpts),
+          collapseNum(this.saturationOpts),
+        ),
         radius: collapseNum(this.sparkRadiusOpts),
         mass: collapseNum(this.sparkMassOpts),
         fadeDelay: collapseNum(this.sparkFadeDelayOpts),

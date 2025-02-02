@@ -17,8 +17,8 @@ export interface BackgroundSpec {
 }
 
 export interface FireworkSpec {
-  id: string;
   hueOpts: NumberOptions;
+  saturationOpts: NumberOptions;
   explosionMagnitudeOpts: NumberOptions;
   sparkCountOpts: NumberOptions;
   sparkRadiusOpts: NumberOptions;

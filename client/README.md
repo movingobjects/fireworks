@@ -9,7 +9,7 @@
 - [x] Make sparks fade
 - [x] Make background resize to fit window
 - [x] Add UI to change modes
-- [ ] Allow modes to control background
+- [x] Allow modes to control background
 - [ ] Add 5 or so modes
 - [ ] Add trails to projectiles & sparks
 - [ ] Add sound effects
