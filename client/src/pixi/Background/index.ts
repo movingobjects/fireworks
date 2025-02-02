@@ -7,27 +7,37 @@ import { Star } from './Star';
 export class Background extends PIXI.Container {
   static STAR_COUNT: number = 500;
 
-  gradient: PIXI.Graphics;
+  gradient: PIXI.Graphics = new PIXI.Graphics();
   stars: Star[];
 
   constructor() {
     super();
 
-    this.gradient = this.drawGradient();
+    this.drawGradient();
     this.stars = this.drawStars();
+
+    // TODO:
+    // - debounce for performance
+    // - fix stars to work with resizing window
+    window.addEventListener('resize', () => {
+      this.gradient.width = PixiView.width();
+      this.gradient.height = PixiView.height();
+    });
   }
 
   drawGradient = () => {
-    const fill = new PIXI.FillGradient(0, 0, 0, PixiView.height());
-    fill.addColorStop(0, 0x000000);
-    fill.addColorStop(1, COLOR_TWILIGHT);
+    const viewW = PixiView.width();
+    const viewH = PixiView.height();
 
-    const gradient = new PIXI.Graphics()
-      .rect(0, 0, PixiView.width(), PixiView.height())
+    const fill = new PIXI.FillGradient(0, 0, 0, viewH)
+      .addColorStop(0, 0x000000)
+      .addColorStop(1, COLOR_TWILIGHT);
+
+    this.gradient = new PIXI.Graphics()
+      .rect(0, 0, viewW, viewH)
       .fill(fill);
 
-    this.addChild(gradient);
-    return gradient;
+    this.addChild(this.gradient);
   };
 
   drawStars = () => (

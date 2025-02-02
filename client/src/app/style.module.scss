@@ -1,4 +1,8 @@
 .wrap {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
   .controls {
     position: absolute;
     top: 1em;
