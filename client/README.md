@@ -8,7 +8,7 @@
 - [x] Add safe target area
 - [x] Make sparks fade
 - [x] Make background resize to fit window
-- [ ] Add UI to set `FireworkSpec`
+- [x] Add UI to change modes
 - [ ] Add trails to projectiles & sparks
 - [ ] Add sound effects
 - [ ] Add data structure for firework displays
