@@ -46,8 +46,10 @@ export class Spark extends Particle {
     this.x = projectile.x;
     this.y = projectile.y;
 
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
     this.graphic = new PIXI.Sprite(
-      PIXI.Texture.from(`/textures/${texture}.png`),
+      PIXI.Texture.from(`${basePath}/textures/${texture}.png`),
     );
     this.graphic.tint = color;
     this.graphic.width = radius;

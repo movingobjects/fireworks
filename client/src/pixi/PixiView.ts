@@ -64,10 +64,11 @@ export class PixiView extends PIXI.Container {
   };
 
   preloadTextures = async() => {
-    await PIXI.Assets.load('/textures/x.png');
-    await PIXI.Assets.load('/textures/circle.png');
-    await PIXI.Assets.load('/textures/star.png');
-    await PIXI.Assets.load('/textures/visual-electric.png');
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+    await PIXI.Assets.load(`${basePath}/textures/x.png`);
+    await PIXI.Assets.load(`${basePath}/textures/circle.png`);
+    await PIXI.Assets.load(`${basePath}/textures/star.png`);
+    await PIXI.Assets.load(`${basePath}/textures/visual-electric.png`);
   };
 
   drawBackground = () => {
