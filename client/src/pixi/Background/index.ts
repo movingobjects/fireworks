@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { times } from 'remeda';
+import { COLOR_TWILIGHT } from '@/constants';
 import { PixiView } from '../PixiView';
 import { Star } from './Star';
 
@@ -19,7 +20,7 @@ export class Background extends PIXI.Container {
   drawGradient = () => {
     const fill = new PIXI.FillGradient(0, 0, 0, PixiView.height());
     fill.addColorStop(0, 0x000000);
-    fill.addColorStop(1, 0x220033);
+    fill.addColorStop(1, COLOR_TWILIGHT);
 
     const gradient = new PIXI.Graphics()
       .rect(0, 0, PixiView.width(), PixiView.height())

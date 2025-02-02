@@ -115,7 +115,7 @@ export class PixiView extends PIXI.Container {
 
     const spec: FireworkSpec = {
       projectile: {
-        color: 'white',
+        color: 0xffffff,
         radiusOpts: {
           min: 1,
           max: 2,
@@ -137,12 +137,20 @@ export class PixiView extends PIXI.Container {
         sparkRadiusOpts: [
           {
             min: 3,
-            max: 10,
+            max: 7,
           },
         ],
         sparkDragOpts: {
           min: 0.02,
           max: 0.1,
+        },
+        sparkFadeDelayOpts: {
+          min: 250,
+          max: 1250,
+        },
+        sparkFadeDurationOpts: {
+          min: 250,
+          max: 1250,
         },
         sparkTextureOpts: ['circle'],
         upwardMagnitudeOpts: {
@@ -152,10 +160,10 @@ export class PixiView extends PIXI.Container {
         maxMagnitudeOpts: [
           {
             min: 1,
-            max: 10,
+            max: 5,
           }, {
-            min: 15,
-            max: 15,
+            min: 3,
+            max: 10,
           },
         ],
       },

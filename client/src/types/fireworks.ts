@@ -12,7 +12,7 @@ export interface FireworkSpec {
 }
 
 export interface ProjectileSpec {
-  color: string;
+  color: number;
   radiusOpts: NumberOptions;
   target: Vector;
 }
@@ -20,8 +20,10 @@ export interface ProjectileSpec {
 export interface ExplosionSpec {
   maxMagnitudeOpts: NumberOptions;
   sparkCountOpts: NumberOptions;
-  sparkHueOpts: NumberOptions;
   sparkDragOpts: NumberOptions;
+  sparkFadeDelayOpts: NumberOptions;
+  sparkFadeDurationOpts: NumberOptions;
+  sparkHueOpts: NumberOptions;
   sparkRadiusOpts: NumberOptions;
   sparkTextureOpts: StringOptions;
   upwardMagnitudeOpts: NumberOptions;

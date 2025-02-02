@@ -6,7 +6,7 @@ import { PixiView } from '../PixiView';
 
 type ProjectileProps = {
   radius: number;
-  color: string;
+  color: number;
 };
 
 export class Projectile extends Particle {

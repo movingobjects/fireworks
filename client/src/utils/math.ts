@@ -68,7 +68,7 @@ export function lerp(
   min: number,
   max: number,
   val = 0.5,
-) {
+): number {
   return (min * (1 - val)) + (max * val);
 }
 
@@ -76,6 +76,18 @@ export function norm(
   val: number,
   min: number,
   max = 0.5,
-) {
+): number {
   return (val - min) / (max - min);
+}
+
+export function clamp(
+  num: number,
+  min: number = 0,
+  max: number = 1,
+): number {
+  if (min <= max) {
+    return Math.max(min, Math.min(max, num));
+  } else {
+    return Math.max(max, Math.min(min, num));
+  }
 }

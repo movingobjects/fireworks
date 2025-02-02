@@ -6,7 +6,7 @@
 - [x] Add subtle background
 - [x] Rework `Range`s as `NumberOptions`s
 - [x] Add safe target area
-- [ ] Make sparks fade
+- [x] Make sparks fade
 - [ ] Add trails to projectiles & sparks
 - [ ] Add sound effects
 - [ ] Add UI to set `FireworkSpec`

@@ -1,9 +1,15 @@
+import { lerp } from './math';
+
+type RgbColor = {
+  r: number;
+  g: number;
+  b: number;
+};
+
 /**
  * LLM'ed this util to allow color generating in hue/saturation/value ranges
- *
- * @
  */
-export function hsvToHex(hue: number = 0, sat: number = 1, val: number = 1): string {
+export function fromHsv(hue: number = 0, sat: number = 1, val: number = 1): number {
   const c = val * sat;
   const x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
   const m = val - c;
@@ -26,6 +32,31 @@ export function hsvToHex(hue: number = 0, sat: number = 1, val: number = 1): str
   g = Math.round((g + m) * 255);
   b = Math.round((b + m) * 255);
 
-  // Convert to hex string
-  return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
+  // Convert to hex number
+  return (r << 16) | (g << 8) | b;
+}
+
+export function mixColors(colorA: number, colorB: number, amt: number): number {
+  let rgbA = toRgb(colorA),
+    rgbB = toRgb(colorB);
+
+  return fromRgb({
+    r: lerp(rgbA.r, rgbB.r, amt),
+    g: lerp(rgbA.g, rgbB.g, amt),
+    b: lerp(rgbA.b, rgbB.b, amt),
+  });
+}
+
+export function toRgb(colorNum: number): RgbColor {
+  return {
+    r: ((colorNum >> 16) & 0xFF) / 255,
+    g: ((colorNum >> 8) & 0xFF) / 255,
+    b: ((colorNum) & 0xFF) / 255,
+  };
+}
+
+export function fromRgb({
+  r, g, b,
+}: RgbColor): number {
+  return (((r * 255) << 16) + ((g * 255) << 8) + (b * 255 | 0));
 }

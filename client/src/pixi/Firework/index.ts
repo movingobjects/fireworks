@@ -7,7 +7,7 @@ import {
   shallowCollapseNum,
   shallowCollapseString,
 } from '@/utils/collapse';
-import { hsvToHex } from '@/utils/color';
+import { fromHsv } from '@/utils/color';
 import { Projectile } from './Projectile';
 import { Spark } from './Spark';
 
@@ -59,6 +59,8 @@ export class Firework extends PIXI.Container {
       maxMagnitudeOpts,
       sparkCountOpts,
       sparkHueOpts,
+      sparkFadeDelayOpts,
+      sparkFadeDurationOpts,
       sparkDragOpts,
       sparkRadiusOpts,
       sparkTextureOpts,
@@ -70,14 +72,17 @@ export class Firework extends PIXI.Container {
     const sparkRadiusCollapsd = shallowCollapseNum(sparkRadiusOpts);
     const maxMagnitudeCollapsed = shallowCollapseNum(maxMagnitudeOpts);
     const textureCollapsed = shallowCollapseString(sparkTextureOpts);
+    const fadeDelayCollapsed = shallowCollapseNum(sparkFadeDelayOpts);
 
     times(sparksCount, () => {
       const spark = new Spark({
         projectile: this.projectile!,
         texture: collapseString(textureCollapsed),
-        color: hsvToHex(collapseNum(sparkHueCollapsed)),
+        color: fromHsv(collapseNum(sparkHueCollapsed)),
         radius: collapseNum(sparkRadiusCollapsd),
         drag: collapseNum(sparkDragOpts),
+        fadeDelay: collapseNum(fadeDelayCollapsed),
+        fadeDuration: collapseNum(sparkFadeDurationOpts),
         explosionMagnitude: collapseNum(maxMagnitudeCollapsed),
         upwardMagnitude: collapseNum(upwardMagnitudeOpts),
       });
@@ -101,6 +106,7 @@ export class Firework extends PIXI.Container {
         spark.dispose();
         return nextSparks;
       }
+      spark.updateFade();
       spark.applyPhysics();
       return [...nextSparks, spark];
     }, []);
