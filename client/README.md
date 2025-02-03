@@ -11,8 +11,7 @@
 - [x] Add UI to change modes
 - [x] Allow modes to control background
 - [x] Add 5 or so modes
+- [x] Add sound effects
 - [ ] Add trails to projectiles & sparks
-- [ ] Add sound effects
-- [ ] Add data structure for firework displays
-  - Array of firework specs with timestamps
+- [ ] Add data structure for firework display sequences
 - [ ] Allow sequencing displays to music
