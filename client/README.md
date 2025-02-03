@@ -2,7 +2,7 @@
 
 Animation exercise for Visual Electric
 
-## Table of Contents
+## Contents
 
 - [Development](#development)
 - [Build](#build)
