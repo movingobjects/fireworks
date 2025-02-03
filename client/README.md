@@ -1,17 +1,52 @@
-# Fireworks
+# Fireworks (client)
 
-## To do
+Animation exercise for Visual Electric
 
-- [x] Add pause/resume button
-- [x] Add subtle background
-- [x] Rework `Range`s as `NumberOptions`s
-- [x] Add safe target area
-- [x] Make sparks fade
-- [x] Make background resize to fit window
-- [x] Add UI to change modes
-- [x] Allow modes to control background
-- [x] Add 5 or so modes
-- [x] Add sound effects
-- [ ] Add trails to projectiles & sparks
-- [ ] Add data structure for firework display sequences
-- [ ] Allow sequencing displays to music
+## Table of Contents
+
+- [Development](#development)
+- [Build](#build)
+- [Folder Structure](#folder-structure)
+
+## Development
+
+Start the development server:
+
+```sh
+yarn dev
+```
+
+## Build
+
+To create an optimized production build:
+
+```sh
+yarn build
+```
+
+Run the production build:
+
+```sh
+yarn start
+```
+
+## Folder Structure
+
+```
+.
+│── public/             # Static assets
+└── src/                # Source code
+    ├── app/            # Next.js app router files
+    ├── atoms/          # Jotai atomic state management
+    ├── components/     # React components
+    ├── config/         # Configurable settings
+    |  ├── constant.ts  # Handful of global constants
+    |  └── modes.ts     # Firework display mode definitions
+    ├── pixi/           # PIXI views
+    ├── styles/         # Global styles
+    ├── types/          # TypeScript type definitions
+    └── utils/          # Utility functions
+       ├── collapse.ts  # Utils relating to "collapsing" options/ranges
+       ├── color.ts     # Utils relating to color
+       └── math.ts      # Utils relating to math and geometry
+```
