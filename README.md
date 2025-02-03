@@ -1,4 +1,5 @@
-# Visual Electric Fireworks exercise
+# Fireworks
+Animation exercise for Visual Electric
 
 ![Fireworks demo](https://github.com/movingobjects/github-assets/blob/main/visual-electric-fireworks/fireworks-demo.gif)
 
