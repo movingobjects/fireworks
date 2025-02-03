@@ -5,6 +5,7 @@ import { ModeSpec } from '@/types/fireworks';
 import { getRandomArrayItem } from '@/utils/math';
 import { Background } from './Background';
 import { Firework } from './Firework';
+const { Howl } = require('howler');
 
 export class PixiView extends PIXI.Container {
   static pixiApp: PIXI.Application;
@@ -16,6 +17,22 @@ export class PixiView extends PIXI.Container {
 
   background: Background;
   fireworks: Firework[] = [];
+
+  assetBasePath: string = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
+  explodeSounds: string[] = [
+    `explode-1.mp3`,
+    `explode-2.mp3`,
+    `explode-3.mp3`,
+    `explode-4.mp3`,
+  ];
+
+  sparkTextures: string[] = [
+    'x.png',
+    'circle.png',
+    'star.png',
+    'visual-electric.png',
+  ];
 
   animationId?: number;
 
@@ -64,17 +81,31 @@ export class PixiView extends PIXI.Container {
   };
 
   preloadTextures = async() => {
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-    await PIXI.Assets.load(`${basePath}/textures/x.png`);
-    await PIXI.Assets.load(`${basePath}/textures/circle.png`);
-    await PIXI.Assets.load(`${basePath}/textures/star.png`);
-    await PIXI.Assets.load(`${basePath}/textures/visual-electric.png`);
+    const textureBasePath = `${this.assetBasePath}/textures/`;
+    await Promise.all(
+      this.sparkTextures.map((fileName) => {
+        PIXI.Assets.load(`${textureBasePath}${fileName}`);
+      }),
+    );
   };
 
   drawBackground = () => {
     const background = new Background();
     this.addChild(background);
     return background;
+  };
+
+  onFireworkExplode = () => {
+    if (this.atomStore.get(atoms.isMuted)) return;
+
+    const soundBasePath = `${this.assetBasePath}/sounds/`;
+    var sound = new Howl({
+      src: `${soundBasePath}${getRandomArrayItem(this.explodeSounds)}`,
+      volume: Math.random() * 0.5,
+      autoplay: false,
+    });
+    sound.once('unlock', () => sound.stop());
+    sound.play();
   };
 
   launchFirework = () => {
@@ -84,6 +115,7 @@ export class PixiView extends PIXI.Container {
       PixiView.width() / 2,
       PixiView.height(),
       getRandomArrayItem(fireworks),
+      this.onFireworkExplode,
     );
 
     this.addChild(firework);

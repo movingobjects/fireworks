@@ -6,6 +6,7 @@ import {
 } from '@/types/fireworks';
 
 export const modeIndex = atom<number>(0);
+export const isMuted = atom<boolean>(true);
 
 export const activeMode = atom<ModeSpec>((get) => (
   modes[get(modeIndex)]

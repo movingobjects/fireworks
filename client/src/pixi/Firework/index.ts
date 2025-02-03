@@ -23,6 +23,7 @@ export class Firework extends PIXI.Container {
   projectile?: Projectile;
   sparks: Spark[] = [];
   spec: FireworkSpec;
+  onExplode: () => void;
 
   sparkCount: number;
   hueOpts: NumberOptions;
@@ -38,9 +39,11 @@ export class Firework extends PIXI.Container {
     x: number,
     y: number,
     spec: FireworkSpec,
+    onExplode: () => void,
   ) {
     super();
     this.spec = spec;
+    this.onExplode = onExplode;
 
     this.sparkCount = collapseNum(spec.sparkCountOpts);
     this.hueOpts = shallowCollapseNum(spec.hueOpts);
@@ -75,6 +78,8 @@ export class Firework extends PIXI.Container {
 
     this.projectile.dispose();
     delete this.projectile;
+
+    this.onExplode();
   };
 
   drawSparks = () => {

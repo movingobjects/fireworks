@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
+    "howler": "^2.2.4",
     "jotai": "^2.11.3",
     "next": "15.1.6",
     "pixi.js": "^8.7.2",
