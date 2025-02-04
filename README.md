@@ -54,8 +54,19 @@ I found using the traditional object-oriented PixiJS approach was quicker gettin
 
 ### Going further
 
+#### Sequenced firework shows
+
 An idea I didn't end up having time to execute was allowing sequencing/choreographing of the fireworks, and being able to play back a fireworks show timed to music.
 
 While I didn't end up getting to this, I did try to set things up in a way that would allow setting this up in the future. For instance, each firework is actually launched toward a particular location and is meant to explode there (in contrast to a perhaps simpler approach of launching with a particular angle & velocity or just specifying X and Y velocity values). This required setting up a [`utility function`](https://github.com/movingobjects/visual-electric-fireworks/blob/b49cd602d8b10694b38f7d2a47c2903da68b65e8/client/src/utils/math.ts#L15) that converts a target point on the screen to a X and Y velocity that will allow the `projectile` to reach that point at the peak of its arc.
 
 This approach was a little over-engineered for the ultimate outcome, but I was happy that things were set up to someday allow a sequencer UX where you could decide exactly when and where a firework would explode.
+
+#### Other to-dos/thoughts
+
+- [ ] Fix background & stars so they respond better to window resize
+- [ ] Allow sound effects to vary within mode config
+- [ ] Add trails to the projectile & sparks, along with variety of config properties for those
+- [ ] Allow clicking on the screen to launch fireworks to that point
+- [ ] UI for allowing user to play with config properties
+
