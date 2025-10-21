@@ -435,59 +435,5 @@ export const modes: ModeSpec[] = [
       },
     ],
   },
-  {
-    id: 'mind-camera',
-    label: 'Mind Camera',
-    launchInterval: 300,
-    background: {
-      enableStars: false,
-      glowColor: 0x220011,
-    },
-    fireworks: [
-      {
-        hueOpts: [
-          {
-            min: 10,
-            max: 22,
-          },
-        ],
-        saturationOpts: 1,
-        sparkCountOpts: {
-          min: 25,
-          max: 100,
-        },
-        sparkRadiusOpts: [
-          {
-            min: 10,
-            max: 100,
-          },
-          {
-            min: 25,
-            max: 125,
-          },
-        ],
-        sparkMassOpts: 0.6,
-        sparkFadeDelayOpts: {
-          min: 500,
-          max: 1000,
-        },
-        sparkFadeDurationOpts: {
-          min: 500,
-          max: 5000,
-        },
-        sparkTextureOpts: ['visual-electric'],
-        explosionMagnitudeOpts: [
-          {
-            min: 0,
-            max: 30,
-          },
-          {
-            min: 0,
-            max: 15,
-          },
-        ],
-      },
-    ],
-  },
 
 ] as const;

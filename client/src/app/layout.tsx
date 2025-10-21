@@ -4,7 +4,7 @@ import '@/styles/globals.scss';
 
 export const metadata: Metadata = {
   title: 'Fireworks',
-  description: 'Animation demo for Visual Electric',
+  description: 'Animation demo',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {

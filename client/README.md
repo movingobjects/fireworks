@@ -1,7 +1,5 @@
 # Fireworks (client)
 
-Animation exercise for Visual Electric
-
 ## Contents
 
 - [Development](#development)

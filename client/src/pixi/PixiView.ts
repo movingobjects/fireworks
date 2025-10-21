@@ -30,8 +30,7 @@ export class PixiView extends PIXI.Container {
   sparkTextures: string[] = [
     'x.png',
     'circle.png',
-    'star.png',
-    'visual-electric.png',
+    'star.png'
   ];
 
   animationId?: number;
